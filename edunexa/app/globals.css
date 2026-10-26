@@ -1,41 +1,147 @@
 @import "tailwindcss";
 
+:root {
+  color-scheme: light;
+  --en-canvas: #f5f3ee;
+  --en-surface: #ffffff;
+  --en-ink: #292622;
+  --en-muted: #716d66;
+  --en-border: #e4dfd6;
+  --en-accent: #e5a332;
+  --en-accent-hover: #d49424;
+  --en-accent-soft: #fbf0d9;
+  --en-radius: 0.875rem;
+}
+
+@theme inline {
+  --color-canvas: var(--en-canvas);
+  --color-surface: var(--en-surface);
+  --color-ink: var(--en-ink);
+  --color-subtle: var(--en-muted);
+  --color-line: var(--en-border);
+  --color-accent: var(--en-accent);
+  --color-accent-hover: var(--en-accent-hover);
+  --color-accent-soft: var(--en-accent-soft);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@keyframes doubt-drawer-in {
+  from { opacity: 0; transform: translateX(-16px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
 body {
-  background: linear-gradient(135deg, #eeadd1 0%, #bafded 50%, #f5e9b7 100%);
-  overflow-x: hidden;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: var(--en-canvas);
+  color: var(--en-ink);
 }
- 
-/* Fade-up entrance for cards */
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(24px); }
-  to { opacity: 1; transform: translateY(0); }
+
+.ui-page {
+  min-height: 100vh;
+  background: var(--en-canvas);
+  color: var(--en-ink);
 }
-.animate-fade-up {
-  animation: fadeUp 0.6s ease-out forwards;
+
+.ui-panel {
+  border: 1px solid var(--en-border);
+  border-radius: var(--en-radius);
+  background: var(--en-surface);
 }
-.delay-100 { animation-delay: 0.1s; }
-.delay-200 { animation-delay: 0.2s; }
-.delay-300 { animation-delay: 0.3s; }
- 
-/* Small wiggle for the logo icon */
-@keyframes wiggle {
-  0%, 100% { transform: rotate(-6deg); }
-  50% { transform: rotate(6deg); }
+
+.ui-primary {
+  border-radius: 9999px;
+  background: var(--en-accent);
+  color: var(--en-ink);
+  transition: background-color 160ms ease, transform 160ms ease;
 }
-.animate-wiggle {
-  animation: wiggle 2s ease-in-out infinite;
+
+.ui-primary:hover:not(:disabled) {
+  background: var(--en-accent-hover);
 }
- 
-/* Floating background symbols */
-@keyframes floatSymbol {
-  0%   { transform: translateY(0) rotate(0deg); }
-  50%  { transform: translateY(-30px) rotate(12deg); }
-  100% { transform: translateY(0) rotate(0deg); }
+
+.ui-primary:active:not(:disabled) {
+  transform: translateY(1px);
 }
-.symbol {
-  position: absolute;
-  opacity: 0.25;
-  animation: floatSymbol 6s ease-in-out infinite;
-  user-select: none;
-  pointer-events: none;
+
+form button:not([type="button"]):not([type="reset"]) {
+  border-radius: 9999px;
+  background: var(--en-accent);
+  color: var(--en-ink);
+  transition: background-color 160ms ease, transform 160ms ease;
+}
+
+form button:not([type="button"]):not([type="reset"]):hover:not(:disabled) {
+  background: var(--en-accent-hover);
+}
+
+.ui-field {
+  border-color: var(--en-border);
+  border-radius: 0.75rem;
+  background: var(--en-surface);
+  color: var(--en-ink);
+}
+
+.ui-field:focus {
+  border-color: var(--en-accent-hover);
+  outline: 2px solid color-mix(in srgb, var(--en-accent) 25%, transparent);
+  outline-offset: 1px;
+}
+
+input:not([type="checkbox"]):not([type="radio"]),
+select,
+textarea {
+  border-color: var(--en-border);
+  border-radius: 0.75rem;
+}
+
+input:not([type="checkbox"]):not([type="radio"]):focus,
+select:focus,
+textarea:focus {
+  border-color: var(--en-accent-hover);
+  outline: 2px solid color-mix(in srgb, var(--en-accent) 25%, transparent);
+  outline-offset: 1px;
+}
+
+[class~="bg-gray-50"],
+[class~="bg-[#f8fafc]"],
+[class~="bg-[#fafafa]"] {
+  background-color: var(--en-canvas);
+}
+
+[class~="border-gray-200"],
+[class~="border-gray-300"] {
+  border-color: var(--en-border);
+}
+
+.ui-eyebrow {
+  color: var(--en-muted);
+  font-size: 0.7rem;
+  font-weight: 650;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.ui-page-title {
+  color: var(--en-ink);
+  font-weight: 650;
+  letter-spacing: -0.04em;
+}
+
+::selection {
+  background: var(--en-accent-soft);
+  color: var(--en-ink);
+}
+
+.nav-link {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #4c4c4c;
+  transition: color 0.2s ease;
+}
+
+.nav-link:hover {
+  color: #000000;
 }
