@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Plus, Send, Trash2 } from "lucide-react";
 import { useState } from "react";
+import AiMaterialGenerator from "../AiMaterialGenerator";
 
 const blankQuestion = () => ({
   prompt: "",
@@ -128,6 +129,14 @@ export default function QuizEditor({ courses, initialQuiz = null }) {
               </label>
             </div>
           </section>
+
+          <AiMaterialGenerator kind="quiz" onGenerated={(generated) => {
+            setTitle(generated.title);
+            setDescription(generated.description);
+            setQuestions(generated.questions);
+            setError("");
+            setNotice("AI draft added. Review every question and answer before saving or publishing.");
+          }} />
 
           {questions.map((question, questionIndex) => (
             <section key={questionIndex} className="rounded-2xl border border-line bg-white p-6 sm:p-7">

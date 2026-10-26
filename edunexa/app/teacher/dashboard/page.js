@@ -10,7 +10,7 @@ export default async function TeacherDashboard() {
   if (!session?.user) redirect("/login");
   if (session.user.role !== "TEACHER") redirect("/dashboard");
 
-  const [courses, enrollments, quizzes, attempts] = await Promise.all([
+  const [courses, enrollments, quizzes, attempts, assignmentCount, submissionsToGradeCount, submissionsToGrade, recentAssignments] = await Promise.all([
     prisma.course.findMany({
       where: { teacherId: session.user.id },
       include: { _count: { select: { enrollments: true, quizzes: true } } },
@@ -33,6 +33,23 @@ export default async function TeacherDashboard() {
       orderBy: { submittedAt: "desc" },
       take: 100,
     }),
+    prisma.assignment.count({ where: { teacherId: session.user.id } }),
+    prisma.assignmentSubmission.count({ where: { grade: null, assignment: { teacherId: session.user.id } } }),
+    prisma.assignmentSubmission.findMany({
+      where: { grade: null, assignment: { teacherId: session.user.id } },
+      include: {
+        student: { select: { name: true } },
+        assignment: { select: { id: true, title: true, course: { select: { title: true } } } },
+      },
+      orderBy: { submittedAt: "desc" },
+      take: 6,
+    }),
+    prisma.assignment.findMany({
+      where: { teacherId: session.user.id },
+      include: { course: { select: { title: true } }, _count: { select: { submissions: true } } },
+      orderBy: { updatedAt: "desc" },
+      take: 6,
+    }),
   ]);
 
   const studentCount = new Set(enrollments.map(({ studentId }) => studentId)).size;
@@ -45,6 +62,7 @@ export default async function TeacherDashboard() {
     { title: "Enrolled students", value: studentCount, note: "Across your courses", icon: Users },
     { title: "Courses", value: courses.length, note: "Courses you manage", icon: BookOpen },
     { title: "Published quizzes", value: publishedQuizCount, note: "Available to students", icon: ClipboardCheck },
+    { title: "Assignments", value: assignmentCount, note: "Work set for your students", icon: ClipboardCheck },
     { title: "Average quiz score", value: averageScore, note: `Based on ${attempts.length} recent submissions`, icon: TrendingUp },
   ];
 
@@ -67,7 +85,7 @@ export default async function TeacherDashboard() {
           </div>
         </div>
 
-        <section aria-label="Teaching overview" className="mt-8 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+        <section aria-label="Teaching overview" className="mt-8 grid gap-4 sm:grid-cols-2 xl:grid-cols-5">
           {stats.map(({ title, value, note, icon: Icon }) => (
             <article key={title} className="rounded-2xl border border-stone-200 bg-white p-5">
               <div className="flex items-start justify-between"><div><p className="text-sm text-stone-500">{title}</p><p className="mt-3 text-3xl font-semibold tracking-tight tabular-nums">{value}</p></div><span className="rounded-xl bg-amber-50 p-2.5 text-amber-900"><Icon size={19} /></span></div>
@@ -87,6 +105,14 @@ export default async function TeacherDashboard() {
             {attempts.length ? <div className="mt-5 space-y-2">{attempts.slice(0, 6).map((attempt) => <article key={attempt.id} className="flex items-center justify-between gap-3 rounded-xl bg-stone-50 px-4 py-3"><div className="min-w-0"><p className="truncate text-sm font-medium">{attempt.student.name || "Student"}</p><p className="mt-0.5 truncate text-xs text-stone-500">{attempt.quiz.title} · {attempt.quiz.course.title}</p></div><span className="shrink-0 text-sm font-semibold tabular-nums">{Math.round((attempt.score / attempt.totalQuestions) * 100)}%</span></article>)}</div> : <div className="mt-5 rounded-xl bg-stone-50 px-5 py-8 text-center"><p className="text-sm font-medium">No submissions yet</p><p className="mt-1 text-xs text-stone-500">Published quiz results will appear here.</p><Link href="/teacher/quizzes/new" className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-amber-900">Create a quiz <ArrowRight size={14} /></Link></div>}
           </section>
         </div>
+
+        <section className="mt-6 rounded-2xl border border-stone-200 bg-white p-5 sm:p-6">
+          <div className="flex flex-wrap items-center justify-between gap-3">
+            <div><h2 className="font-semibold">Assignment submissions to grade</h2><p className="mt-1 text-xs text-stone-500">{submissionsToGrade.length ? "Open a response to review it and leave feedback." : "New student work will appear here."}</p></div>
+            <Link href="/teacher/assignments" className="text-xs font-semibold text-amber-900 hover:underline">Manage assignments{submissionsToGradeCount ? ` · ${submissionsToGradeCount} waiting` : ""}</Link>
+          </div>
+          {submissionsToGrade.length ? <div className="mt-5 divide-y divide-stone-100">{submissionsToGrade.map((submission) => <Link key={submission.id} href={`/teacher/assignments/${submission.assignment.id}`} className="flex flex-wrap items-center justify-between gap-3 py-3 first:pt-0 last:pb-0"><span className="min-w-0"><span className="block truncate text-sm font-medium">{submission.student.name || "Student"} · {submission.assignment.title}</span><span className="mt-0.5 block truncate text-xs text-stone-500">{submission.assignment.course.title}</span></span><span className="shrink-0 rounded-full bg-amber-50 px-3 py-1.5 text-xs font-semibold text-amber-900">Needs grading</span></Link>)}</div> : recentAssignments.length ? <div className="mt-5 grid gap-3 sm:grid-cols-2 xl:grid-cols-3">{recentAssignments.map((assignment) => <Link key={assignment.id} href={`/teacher/assignments/${assignment.id}`} className="rounded-xl bg-stone-50 px-4 py-3 transition hover:bg-amber-50"><span className="block truncate text-sm font-medium">{assignment.title}</span><span className="mt-1 block truncate text-xs text-stone-500">{assignment.course.title} · {assignment._count.submissions} submissions</span></Link>)}</div> : <div className="mt-5 rounded-xl bg-stone-50 px-5 py-7 text-center"><p className="text-sm font-medium">No assignments yet</p><p className="mt-1 text-xs text-stone-500">Create work for a course and student submissions will be organized here.</p><Link href="/teacher/assignments/new" className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-amber-900">Create an assignment <ArrowRight size={14} /></Link></div>}
+        </section>
       </div>
     </main>
   );
