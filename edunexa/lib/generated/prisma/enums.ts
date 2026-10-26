@@ -17,6 +17,7 @@ export const Role = {
 } as const
 
 export type Role = (typeof Role)[keyof typeof Role]
+<<<<<<< Updated upstream
 
 
 export const QuizStatus = {
@@ -32,3 +33,5 @@ export const LearningActivityType = {
 } as const
 
 export type LearningActivityType = (typeof LearningActivityType)[keyof typeof LearningActivityType]
+=======
+>>>>>>> Stashed changes

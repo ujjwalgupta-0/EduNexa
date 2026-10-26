@@ -52,6 +52,7 @@ export const AnyNull = runtime.AnyNull
 
 export const ModelName = {
   User: 'User',
+<<<<<<< Updated upstream
   ParentLinkInvitation: 'ParentLinkInvitation',
   ParentChild: 'ParentChild',
   Course: 'Course',
@@ -62,6 +63,8 @@ export const ModelName = {
   LearningActivity: 'LearningActivity',
   Enrollment: 'Enrollment',
   PasswordResetToken: 'PasswordResetToken',
+=======
+>>>>>>> Stashed changes
   Account: 'Account',
   Session: 'Session',
   VerificationToken: 'VerificationToken'
@@ -90,15 +93,21 @@ export const UserScalarFieldEnum = {
   emailVerified: 'emailVerified',
   image: 'image',
   role: 'role',
+<<<<<<< Updated upstream
   requestedRole: 'requestedRole',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   password: 'password'
+=======
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+>>>>>>> Stashed changes
 } as const
 
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
 
 
+<<<<<<< Updated upstream
 export const ParentLinkInvitationScalarFieldEnum = {
   id: 'id',
   studentId: 'studentId',
@@ -221,6 +230,8 @@ export const PasswordResetTokenScalarFieldEnum = {
 export type PasswordResetTokenScalarFieldEnum = (typeof PasswordResetTokenScalarFieldEnum)[keyof typeof PasswordResetTokenScalarFieldEnum]
 
 
+=======
+>>>>>>> Stashed changes
 export const AccountScalarFieldEnum = {
   userId: 'userId',
   type: 'type',
@@ -250,8 +261,12 @@ export type SessionScalarFieldEnum = (typeof SessionScalarFieldEnum)[keyof typeo
 export const VerificationTokenScalarFieldEnum = {
   identifier: 'identifier',
   token: 'token',
+<<<<<<< Updated upstream
   expires: 'expires',
   createdAt: 'createdAt'
+=======
+  expires: 'expires'
+>>>>>>> Stashed changes
 } as const
 
 export type VerificationTokenScalarFieldEnum = (typeof VerificationTokenScalarFieldEnum)[keyof typeof VerificationTokenScalarFieldEnum]
@@ -265,6 +280,7 @@ export const SortOrder = {
 export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
 
 
+<<<<<<< Updated upstream
 export const JsonNullValueInput = {
   JsonNull: JsonNull
 } as const
@@ -272,6 +288,8 @@ export const JsonNullValueInput = {
 export type JsonNullValueInput = (typeof JsonNullValueInput)[keyof typeof JsonNullValueInput]
 
 
+=======
+>>>>>>> Stashed changes
 export const QueryMode = {
   default: 'default',
   insensitive: 'insensitive'
@@ -287,6 +305,7 @@ export const NullsOrder = {
 
 export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
 
+<<<<<<< Updated upstream
 
 export const JsonNullValueFilter = {
   DbNull: DbNull,
@@ -296,3 +315,5 @@ export const JsonNullValueFilter = {
 
 export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter]
 
+=======
+>>>>>>> Stashed changes

@@ -28,21 +28,30 @@ export type VerificationTokenMinAggregateOutputType = {
   identifier: string | null
   token: string | null
   expires: Date | null
+<<<<<<< Updated upstream
   createdAt: Date | null
+=======
+>>>>>>> Stashed changes
 }
 
 export type VerificationTokenMaxAggregateOutputType = {
   identifier: string | null
   token: string | null
   expires: Date | null
+<<<<<<< Updated upstream
   createdAt: Date | null
+=======
+>>>>>>> Stashed changes
 }
 
 export type VerificationTokenCountAggregateOutputType = {
   identifier: number
   token: number
   expires: number
+<<<<<<< Updated upstream
   createdAt: number
+=======
+>>>>>>> Stashed changes
   _all: number
 }
 
@@ -51,21 +60,30 @@ export type VerificationTokenMinAggregateInputType = {
   identifier?: true
   token?: true
   expires?: true
+<<<<<<< Updated upstream
   createdAt?: true
+=======
+>>>>>>> Stashed changes
 }
 
 export type VerificationTokenMaxAggregateInputType = {
   identifier?: true
   token?: true
   expires?: true
+<<<<<<< Updated upstream
   createdAt?: true
+=======
+>>>>>>> Stashed changes
 }
 
 export type VerificationTokenCountAggregateInputType = {
   identifier?: true
   token?: true
   expires?: true
+<<<<<<< Updated upstream
   createdAt?: true
+=======
+>>>>>>> Stashed changes
   _all?: true
 }
 
@@ -145,7 +163,10 @@ export type VerificationTokenGroupByOutputType = {
   identifier: string
   token: string
   expires: Date
+<<<<<<< Updated upstream
   createdAt: Date
+=======
+>>>>>>> Stashed changes
   _count: VerificationTokenCountAggregateOutputType | null
   _min: VerificationTokenMinAggregateOutputType | null
   _max: VerificationTokenMaxAggregateOutputType | null
@@ -173,14 +194,20 @@ export type VerificationTokenWhereInput = {
   identifier?: Prisma.StringFilter<"VerificationToken"> | string
   token?: Prisma.StringFilter<"VerificationToken"> | string
   expires?: Prisma.DateTimeFilter<"VerificationToken"> | Date | string
+<<<<<<< Updated upstream
   createdAt?: Prisma.DateTimeFilter<"VerificationToken"> | Date | string
+=======
+>>>>>>> Stashed changes
 }
 
 export type VerificationTokenOrderByWithRelationInput = {
   identifier?: Prisma.SortOrder
   token?: Prisma.SortOrder
   expires?: Prisma.SortOrder
+<<<<<<< Updated upstream
   createdAt?: Prisma.SortOrder
+=======
+>>>>>>> Stashed changes
 }
 
 export type VerificationTokenWhereUniqueInput = Prisma.AtLeast<{
@@ -191,14 +218,20 @@ export type VerificationTokenWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.VerificationTokenWhereInput | Prisma.VerificationTokenWhereInput[]
   identifier?: Prisma.StringFilter<"VerificationToken"> | string
   expires?: Prisma.DateTimeFilter<"VerificationToken"> | Date | string
+<<<<<<< Updated upstream
   createdAt?: Prisma.DateTimeFilter<"VerificationToken"> | Date | string
+=======
+>>>>>>> Stashed changes
 }, "token" | "identifier_token">
 
 export type VerificationTokenOrderByWithAggregationInput = {
   identifier?: Prisma.SortOrder
   token?: Prisma.SortOrder
   expires?: Prisma.SortOrder
+<<<<<<< Updated upstream
   createdAt?: Prisma.SortOrder
+=======
+>>>>>>> Stashed changes
   _count?: Prisma.VerificationTokenCountOrderByAggregateInput
   _max?: Prisma.VerificationTokenMaxOrderByAggregateInput
   _min?: Prisma.VerificationTokenMinOrderByAggregateInput
@@ -211,56 +244,80 @@ export type VerificationTokenScalarWhereWithAggregatesInput = {
   identifier?: Prisma.StringWithAggregatesFilter<"VerificationToken"> | string
   token?: Prisma.StringWithAggregatesFilter<"VerificationToken"> | string
   expires?: Prisma.DateTimeWithAggregatesFilter<"VerificationToken"> | Date | string
+<<<<<<< Updated upstream
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"VerificationToken"> | Date | string
+=======
+>>>>>>> Stashed changes
 }
 
 export type VerificationTokenCreateInput = {
   identifier: string
   token: string
   expires: Date | string
+<<<<<<< Updated upstream
   createdAt?: Date | string
+=======
+>>>>>>> Stashed changes
 }
 
 export type VerificationTokenUncheckedCreateInput = {
   identifier: string
   token: string
   expires: Date | string
+<<<<<<< Updated upstream
   createdAt?: Date | string
+=======
+>>>>>>> Stashed changes
 }
 
 export type VerificationTokenUpdateInput = {
   identifier?: Prisma.StringFieldUpdateOperationsInput | string
   token?: Prisma.StringFieldUpdateOperationsInput | string
   expires?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+<<<<<<< Updated upstream
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+=======
+>>>>>>> Stashed changes
 }
 
 export type VerificationTokenUncheckedUpdateInput = {
   identifier?: Prisma.StringFieldUpdateOperationsInput | string
   token?: Prisma.StringFieldUpdateOperationsInput | string
   expires?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+<<<<<<< Updated upstream
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+=======
+>>>>>>> Stashed changes
 }
 
 export type VerificationTokenCreateManyInput = {
   identifier: string
   token: string
   expires: Date | string
+<<<<<<< Updated upstream
   createdAt?: Date | string
+=======
+>>>>>>> Stashed changes
 }
 
 export type VerificationTokenUpdateManyMutationInput = {
   identifier?: Prisma.StringFieldUpdateOperationsInput | string
   token?: Prisma.StringFieldUpdateOperationsInput | string
   expires?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+<<<<<<< Updated upstream
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+=======
+>>>>>>> Stashed changes
 }
 
 export type VerificationTokenUncheckedUpdateManyInput = {
   identifier?: Prisma.StringFieldUpdateOperationsInput | string
   token?: Prisma.StringFieldUpdateOperationsInput | string
   expires?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+<<<<<<< Updated upstream
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+=======
+>>>>>>> Stashed changes
 }
 
 export type VerificationTokenIdentifierTokenCompoundUniqueInput = {
@@ -272,21 +329,30 @@ export type VerificationTokenCountOrderByAggregateInput = {
   identifier?: Prisma.SortOrder
   token?: Prisma.SortOrder
   expires?: Prisma.SortOrder
+<<<<<<< Updated upstream
   createdAt?: Prisma.SortOrder
+=======
+>>>>>>> Stashed changes
 }
 
 export type VerificationTokenMaxOrderByAggregateInput = {
   identifier?: Prisma.SortOrder
   token?: Prisma.SortOrder
   expires?: Prisma.SortOrder
+<<<<<<< Updated upstream
   createdAt?: Prisma.SortOrder
+=======
+>>>>>>> Stashed changes
 }
 
 export type VerificationTokenMinOrderByAggregateInput = {
   identifier?: Prisma.SortOrder
   token?: Prisma.SortOrder
   expires?: Prisma.SortOrder
+<<<<<<< Updated upstream
   createdAt?: Prisma.SortOrder
+=======
+>>>>>>> Stashed changes
 }
 
 
@@ -295,31 +361,46 @@ export type VerificationTokenSelect<ExtArgs extends runtime.Types.Extensions.Int
   identifier?: boolean
   token?: boolean
   expires?: boolean
+<<<<<<< Updated upstream
   createdAt?: boolean
+=======
+>>>>>>> Stashed changes
 }, ExtArgs["result"]["verificationToken"]>
 
 export type VerificationTokenSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   identifier?: boolean
   token?: boolean
   expires?: boolean
+<<<<<<< Updated upstream
   createdAt?: boolean
+=======
+>>>>>>> Stashed changes
 }, ExtArgs["result"]["verificationToken"]>
 
 export type VerificationTokenSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   identifier?: boolean
   token?: boolean
   expires?: boolean
+<<<<<<< Updated upstream
   createdAt?: boolean
+=======
+>>>>>>> Stashed changes
 }, ExtArgs["result"]["verificationToken"]>
 
 export type VerificationTokenSelectScalar = {
   identifier?: boolean
   token?: boolean
   expires?: boolean
+<<<<<<< Updated upstream
   createdAt?: boolean
 }
 
 export type VerificationTokenOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"identifier" | "token" | "expires" | "createdAt", ExtArgs["result"]["verificationToken"]>
+=======
+}
+
+export type VerificationTokenOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"identifier" | "token" | "expires", ExtArgs["result"]["verificationToken"]>
+>>>>>>> Stashed changes
 
 export type $VerificationTokenPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "VerificationToken"
@@ -328,7 +409,10 @@ export type $VerificationTokenPayload<ExtArgs extends runtime.Types.Extensions.I
     identifier: string
     token: string
     expires: Date
+<<<<<<< Updated upstream
     createdAt: Date
+=======
+>>>>>>> Stashed changes
   }, ExtArgs["result"]["verificationToken"]>
   composites: {}
 }
@@ -755,7 +839,10 @@ export interface VerificationTokenFieldRefs {
   readonly identifier: Prisma.FieldRef<"VerificationToken", 'String'>
   readonly token: Prisma.FieldRef<"VerificationToken", 'String'>
   readonly expires: Prisma.FieldRef<"VerificationToken", 'DateTime'>
+<<<<<<< Updated upstream
   readonly createdAt: Prisma.FieldRef<"VerificationToken", 'DateTime'>
+=======
+>>>>>>> Stashed changes
 }
     
 

@@ -23,6 +23,7 @@ export * from './enums.ts';
  */
 export type User = Prisma.UserModel
 /**
+<<<<<<< Updated upstream
  * Model ParentLinkInvitation
  * 
  */
@@ -73,6 +74,8 @@ export type Enrollment = Prisma.EnrollmentModel
  */
 export type PasswordResetToken = Prisma.PasswordResetTokenModel
 /**
+=======
+>>>>>>> Stashed changes
  * Model Account
  * 
  */

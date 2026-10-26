@@ -31,10 +31,15 @@ export type UserMinAggregateOutputType = {
   emailVerified: Date | null
   image: string | null
   role: $Enums.Role | null
+<<<<<<< Updated upstream
   requestedRole: $Enums.Role | null
   createdAt: Date | null
   updatedAt: Date | null
   password: string | null
+=======
+  createdAt: Date | null
+  updatedAt: Date | null
+>>>>>>> Stashed changes
 }
 
 export type UserMaxAggregateOutputType = {
@@ -44,10 +49,15 @@ export type UserMaxAggregateOutputType = {
   emailVerified: Date | null
   image: string | null
   role: $Enums.Role | null
+<<<<<<< Updated upstream
   requestedRole: $Enums.Role | null
   createdAt: Date | null
   updatedAt: Date | null
   password: string | null
+=======
+  createdAt: Date | null
+  updatedAt: Date | null
+>>>>>>> Stashed changes
 }
 
 export type UserCountAggregateOutputType = {
@@ -57,10 +67,15 @@ export type UserCountAggregateOutputType = {
   emailVerified: number
   image: number
   role: number
+<<<<<<< Updated upstream
   requestedRole: number
   createdAt: number
   updatedAt: number
   password: number
+=======
+  createdAt: number
+  updatedAt: number
+>>>>>>> Stashed changes
   _all: number
 }
 
@@ -72,10 +87,15 @@ export type UserMinAggregateInputType = {
   emailVerified?: true
   image?: true
   role?: true
+<<<<<<< Updated upstream
   requestedRole?: true
   createdAt?: true
   updatedAt?: true
   password?: true
+=======
+  createdAt?: true
+  updatedAt?: true
+>>>>>>> Stashed changes
 }
 
 export type UserMaxAggregateInputType = {
@@ -85,10 +105,15 @@ export type UserMaxAggregateInputType = {
   emailVerified?: true
   image?: true
   role?: true
+<<<<<<< Updated upstream
   requestedRole?: true
   createdAt?: true
   updatedAt?: true
   password?: true
+=======
+  createdAt?: true
+  updatedAt?: true
+>>>>>>> Stashed changes
 }
 
 export type UserCountAggregateInputType = {
@@ -98,10 +123,15 @@ export type UserCountAggregateInputType = {
   emailVerified?: true
   image?: true
   role?: true
+<<<<<<< Updated upstream
   requestedRole?: true
   createdAt?: true
   updatedAt?: true
   password?: true
+=======
+  createdAt?: true
+  updatedAt?: true
+>>>>>>> Stashed changes
   _all?: true
 }
 
@@ -184,10 +214,15 @@ export type UserGroupByOutputType = {
   emailVerified: Date | null
   image: string | null
   role: $Enums.Role
+<<<<<<< Updated upstream
   requestedRole: $Enums.Role | null
   createdAt: Date
   updatedAt: Date
   password: string | null
+=======
+  createdAt: Date
+  updatedAt: Date
+>>>>>>> Stashed changes
   _count: UserCountAggregateOutputType | null
   _min: UserMinAggregateOutputType | null
   _max: UserMaxAggregateOutputType | null
@@ -218,6 +253,7 @@ export type UserWhereInput = {
   emailVerified?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   image?: Prisma.StringNullableFilter<"User"> | string | null
   role?: Prisma.EnumRoleFilter<"User"> | $Enums.Role
+<<<<<<< Updated upstream
   requestedRole?: Prisma.EnumRoleNullableFilter<"User"> | $Enums.Role | null
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
@@ -234,6 +270,12 @@ export type UserWhereInput = {
   createdQuizzes?: Prisma.QuizListRelationFilter
   quizAttempts?: Prisma.QuizAttemptListRelationFilter
   learningActivities?: Prisma.LearningActivityListRelationFilter
+=======
+  createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
+  accounts?: Prisma.AccountListRelationFilter
+  sessions?: Prisma.SessionListRelationFilter
+>>>>>>> Stashed changes
 }
 
 export type UserOrderByWithRelationInput = {
@@ -243,6 +285,7 @@ export type UserOrderByWithRelationInput = {
   emailVerified?: Prisma.SortOrderInput | Prisma.SortOrder
   image?: Prisma.SortOrderInput | Prisma.SortOrder
   role?: Prisma.SortOrder
+<<<<<<< Updated upstream
   requestedRole?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -259,6 +302,12 @@ export type UserOrderByWithRelationInput = {
   createdQuizzes?: Prisma.QuizOrderByRelationAggregateInput
   quizAttempts?: Prisma.QuizAttemptOrderByRelationAggregateInput
   learningActivities?: Prisma.LearningActivityOrderByRelationAggregateInput
+=======
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
+  accounts?: Prisma.AccountOrderByRelationAggregateInput
+  sessions?: Prisma.SessionOrderByRelationAggregateInput
+>>>>>>> Stashed changes
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -271,6 +320,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   emailVerified?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   image?: Prisma.StringNullableFilter<"User"> | string | null
   role?: Prisma.EnumRoleFilter<"User"> | $Enums.Role
+<<<<<<< Updated upstream
   requestedRole?: Prisma.EnumRoleNullableFilter<"User"> | $Enums.Role | null
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
@@ -287,6 +337,12 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   createdQuizzes?: Prisma.QuizListRelationFilter
   quizAttempts?: Prisma.QuizAttemptListRelationFilter
   learningActivities?: Prisma.LearningActivityListRelationFilter
+=======
+  createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
+  accounts?: Prisma.AccountListRelationFilter
+  sessions?: Prisma.SessionListRelationFilter
+>>>>>>> Stashed changes
 }, "id" | "email">
 
 export type UserOrderByWithAggregationInput = {
@@ -296,10 +352,15 @@ export type UserOrderByWithAggregationInput = {
   emailVerified?: Prisma.SortOrderInput | Prisma.SortOrder
   image?: Prisma.SortOrderInput | Prisma.SortOrder
   role?: Prisma.SortOrder
+<<<<<<< Updated upstream
   requestedRole?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   password?: Prisma.SortOrderInput | Prisma.SortOrder
+=======
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
+>>>>>>> Stashed changes
   _count?: Prisma.UserCountOrderByAggregateInput
   _max?: Prisma.UserMaxOrderByAggregateInput
   _min?: Prisma.UserMinOrderByAggregateInput
@@ -315,10 +376,15 @@ export type UserScalarWhereWithAggregatesInput = {
   emailVerified?: Prisma.DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
   image?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   role?: Prisma.EnumRoleWithAggregatesFilter<"User"> | $Enums.Role
+<<<<<<< Updated upstream
   requestedRole?: Prisma.EnumRoleNullableWithAggregatesFilter<"User"> | $Enums.Role | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
   password?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
+=======
+  createdAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
+  updatedAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
+>>>>>>> Stashed changes
 }
 
 export type UserCreateInput = {
@@ -328,6 +394,7 @@ export type UserCreateInput = {
   emailVerified?: Date | string | null
   image?: string | null
   role?: $Enums.Role
+<<<<<<< Updated upstream
   requestedRole?: $Enums.Role | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -344,6 +411,12 @@ export type UserCreateInput = {
   createdQuizzes?: Prisma.QuizCreateNestedManyWithoutTeacherInput
   quizAttempts?: Prisma.QuizAttemptCreateNestedManyWithoutStudentInput
   learningActivities?: Prisma.LearningActivityCreateNestedManyWithoutStudentInput
+=======
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+>>>>>>> Stashed changes
 }
 
 export type UserUncheckedCreateInput = {
@@ -353,6 +426,7 @@ export type UserUncheckedCreateInput = {
   emailVerified?: Date | string | null
   image?: string | null
   role?: $Enums.Role
+<<<<<<< Updated upstream
   requestedRole?: $Enums.Role | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -369,6 +443,12 @@ export type UserUncheckedCreateInput = {
   createdQuizzes?: Prisma.QuizUncheckedCreateNestedManyWithoutTeacherInput
   quizAttempts?: Prisma.QuizAttemptUncheckedCreateNestedManyWithoutStudentInput
   learningActivities?: Prisma.LearningActivityUncheckedCreateNestedManyWithoutStudentInput
+=======
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+>>>>>>> Stashed changes
 }
 
 export type UserUpdateInput = {
@@ -378,6 +458,7 @@ export type UserUpdateInput = {
   emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+<<<<<<< Updated upstream
   requestedRole?: Prisma.NullableEnumRoleFieldUpdateOperationsInput | $Enums.Role | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -394,6 +475,12 @@ export type UserUpdateInput = {
   createdQuizzes?: Prisma.QuizUpdateManyWithoutTeacherNestedInput
   quizAttempts?: Prisma.QuizAttemptUpdateManyWithoutStudentNestedInput
   learningActivities?: Prisma.LearningActivityUpdateManyWithoutStudentNestedInput
+=======
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+>>>>>>> Stashed changes
 }
 
 export type UserUncheckedUpdateInput = {
@@ -403,6 +490,7 @@ export type UserUncheckedUpdateInput = {
   emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+<<<<<<< Updated upstream
   requestedRole?: Prisma.NullableEnumRoleFieldUpdateOperationsInput | $Enums.Role | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -419,6 +507,12 @@ export type UserUncheckedUpdateInput = {
   createdQuizzes?: Prisma.QuizUncheckedUpdateManyWithoutTeacherNestedInput
   quizAttempts?: Prisma.QuizAttemptUncheckedUpdateManyWithoutStudentNestedInput
   learningActivities?: Prisma.LearningActivityUncheckedUpdateManyWithoutStudentNestedInput
+=======
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+>>>>>>> Stashed changes
 }
 
 export type UserCreateManyInput = {
@@ -428,10 +522,15 @@ export type UserCreateManyInput = {
   emailVerified?: Date | string | null
   image?: string | null
   role?: $Enums.Role
+<<<<<<< Updated upstream
   requestedRole?: $Enums.Role | null
   createdAt?: Date | string
   updatedAt?: Date | string
   password?: string | null
+=======
+  createdAt?: Date | string
+  updatedAt?: Date | string
+>>>>>>> Stashed changes
 }
 
 export type UserUpdateManyMutationInput = {
@@ -441,10 +540,15 @@ export type UserUpdateManyMutationInput = {
   emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+<<<<<<< Updated upstream
   requestedRole?: Prisma.NullableEnumRoleFieldUpdateOperationsInput | $Enums.Role | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+=======
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+>>>>>>> Stashed changes
 }
 
 export type UserUncheckedUpdateManyInput = {
@@ -454,10 +558,15 @@ export type UserUncheckedUpdateManyInput = {
   emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+<<<<<<< Updated upstream
   requestedRole?: Prisma.NullableEnumRoleFieldUpdateOperationsInput | $Enums.Role | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+=======
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+>>>>>>> Stashed changes
 }
 
 export type UserCountOrderByAggregateInput = {
@@ -467,10 +576,15 @@ export type UserCountOrderByAggregateInput = {
   emailVerified?: Prisma.SortOrder
   image?: Prisma.SortOrder
   role?: Prisma.SortOrder
+<<<<<<< Updated upstream
   requestedRole?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   password?: Prisma.SortOrder
+=======
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
+>>>>>>> Stashed changes
 }
 
 export type UserMaxOrderByAggregateInput = {
@@ -480,10 +594,15 @@ export type UserMaxOrderByAggregateInput = {
   emailVerified?: Prisma.SortOrder
   image?: Prisma.SortOrder
   role?: Prisma.SortOrder
+<<<<<<< Updated upstream
   requestedRole?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   password?: Prisma.SortOrder
+=======
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
+>>>>>>> Stashed changes
 }
 
 export type UserMinOrderByAggregateInput = {
@@ -493,10 +612,15 @@ export type UserMinOrderByAggregateInput = {
   emailVerified?: Prisma.SortOrder
   image?: Prisma.SortOrder
   role?: Prisma.SortOrder
+<<<<<<< Updated upstream
   requestedRole?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   password?: Prisma.SortOrder
+=======
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
+>>>>>>> Stashed changes
 }
 
 export type UserScalarRelationFilter = {
@@ -504,11 +628,14 @@ export type UserScalarRelationFilter = {
   isNot?: Prisma.UserWhereInput
 }
 
+<<<<<<< Updated upstream
 export type UserNullableScalarRelationFilter = {
   is?: Prisma.UserWhereInput | null
   isNot?: Prisma.UserWhereInput | null
 }
 
+=======
+>>>>>>> Stashed changes
 export type StringFieldUpdateOperationsInput = {
   set?: string
 }
@@ -525,14 +652,18 @@ export type EnumRoleFieldUpdateOperationsInput = {
   set?: $Enums.Role
 }
 
+<<<<<<< Updated upstream
 export type NullableEnumRoleFieldUpdateOperationsInput = {
   set?: $Enums.Role | null
 }
 
+=======
+>>>>>>> Stashed changes
 export type DateTimeFieldUpdateOperationsInput = {
   set?: Date | string
 }
 
+<<<<<<< Updated upstream
 export type UserCreateNestedOneWithoutSentParentInvitationsInput = {
   create?: Prisma.XOR<Prisma.UserCreateWithoutSentParentInvitationsInput, Prisma.UserUncheckedCreateWithoutSentParentInvitationsInput>
   connectOrCreate?: Prisma.UserCreateOrConnectWithoutSentParentInvitationsInput
@@ -675,6 +806,8 @@ export type UserUpdateOneRequiredWithoutPasswordResetTokensNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutPasswordResetTokensInput, Prisma.UserUpdateWithoutPasswordResetTokensInput>, Prisma.UserUncheckedUpdateWithoutPasswordResetTokensInput>
 }
 
+=======
+>>>>>>> Stashed changes
 export type UserCreateNestedOneWithoutAccountsInput = {
   create?: Prisma.XOR<Prisma.UserCreateWithoutAccountsInput, Prisma.UserUncheckedCreateWithoutAccountsInput>
   connectOrCreate?: Prisma.UserCreateOrConnectWithoutAccountsInput
@@ -703,6 +836,7 @@ export type UserUpdateOneRequiredWithoutSessionsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutSessionsInput, Prisma.UserUpdateWithoutSessionsInput>, Prisma.UserUncheckedUpdateWithoutSessionsInput>
 }
 
+<<<<<<< Updated upstream
 export type UserCreateWithoutSentParentInvitationsInput = {
   id?: string
   name?: string | null
@@ -1823,6 +1957,8 @@ export type UserUncheckedUpdateWithoutPasswordResetTokensInput = {
   learningActivities?: Prisma.LearningActivityUncheckedUpdateManyWithoutStudentNestedInput
 }
 
+=======
+>>>>>>> Stashed changes
 export type UserCreateWithoutAccountsInput = {
   id?: string
   name?: string | null
@@ -1830,6 +1966,7 @@ export type UserCreateWithoutAccountsInput = {
   emailVerified?: Date | string | null
   image?: string | null
   role?: $Enums.Role
+<<<<<<< Updated upstream
   requestedRole?: $Enums.Role | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1845,6 +1982,11 @@ export type UserCreateWithoutAccountsInput = {
   createdQuizzes?: Prisma.QuizCreateNestedManyWithoutTeacherInput
   quizAttempts?: Prisma.QuizAttemptCreateNestedManyWithoutStudentInput
   learningActivities?: Prisma.LearningActivityCreateNestedManyWithoutStudentInput
+=======
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+>>>>>>> Stashed changes
 }
 
 export type UserUncheckedCreateWithoutAccountsInput = {
@@ -1854,6 +1996,7 @@ export type UserUncheckedCreateWithoutAccountsInput = {
   emailVerified?: Date | string | null
   image?: string | null
   role?: $Enums.Role
+<<<<<<< Updated upstream
   requestedRole?: $Enums.Role | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1869,6 +2012,11 @@ export type UserUncheckedCreateWithoutAccountsInput = {
   createdQuizzes?: Prisma.QuizUncheckedCreateNestedManyWithoutTeacherInput
   quizAttempts?: Prisma.QuizAttemptUncheckedCreateNestedManyWithoutStudentInput
   learningActivities?: Prisma.LearningActivityUncheckedCreateNestedManyWithoutStudentInput
+=======
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+>>>>>>> Stashed changes
 }
 
 export type UserCreateOrConnectWithoutAccountsInput = {
@@ -1894,6 +2042,7 @@ export type UserUpdateWithoutAccountsInput = {
   emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+<<<<<<< Updated upstream
   requestedRole?: Prisma.NullableEnumRoleFieldUpdateOperationsInput | $Enums.Role | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1909,6 +2058,11 @@ export type UserUpdateWithoutAccountsInput = {
   createdQuizzes?: Prisma.QuizUpdateManyWithoutTeacherNestedInput
   quizAttempts?: Prisma.QuizAttemptUpdateManyWithoutStudentNestedInput
   learningActivities?: Prisma.LearningActivityUpdateManyWithoutStudentNestedInput
+=======
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+>>>>>>> Stashed changes
 }
 
 export type UserUncheckedUpdateWithoutAccountsInput = {
@@ -1918,6 +2072,7 @@ export type UserUncheckedUpdateWithoutAccountsInput = {
   emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+<<<<<<< Updated upstream
   requestedRole?: Prisma.NullableEnumRoleFieldUpdateOperationsInput | $Enums.Role | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1933,6 +2088,11 @@ export type UserUncheckedUpdateWithoutAccountsInput = {
   createdQuizzes?: Prisma.QuizUncheckedUpdateManyWithoutTeacherNestedInput
   quizAttempts?: Prisma.QuizAttemptUncheckedUpdateManyWithoutStudentNestedInput
   learningActivities?: Prisma.LearningActivityUncheckedUpdateManyWithoutStudentNestedInput
+=======
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+>>>>>>> Stashed changes
 }
 
 export type UserCreateWithoutSessionsInput = {
@@ -1942,6 +2102,7 @@ export type UserCreateWithoutSessionsInput = {
   emailVerified?: Date | string | null
   image?: string | null
   role?: $Enums.Role
+<<<<<<< Updated upstream
   requestedRole?: $Enums.Role | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1957,6 +2118,11 @@ export type UserCreateWithoutSessionsInput = {
   createdQuizzes?: Prisma.QuizCreateNestedManyWithoutTeacherInput
   quizAttempts?: Prisma.QuizAttemptCreateNestedManyWithoutStudentInput
   learningActivities?: Prisma.LearningActivityCreateNestedManyWithoutStudentInput
+=======
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+>>>>>>> Stashed changes
 }
 
 export type UserUncheckedCreateWithoutSessionsInput = {
@@ -1966,6 +2132,7 @@ export type UserUncheckedCreateWithoutSessionsInput = {
   emailVerified?: Date | string | null
   image?: string | null
   role?: $Enums.Role
+<<<<<<< Updated upstream
   requestedRole?: $Enums.Role | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1981,6 +2148,11 @@ export type UserUncheckedCreateWithoutSessionsInput = {
   createdQuizzes?: Prisma.QuizUncheckedCreateNestedManyWithoutTeacherInput
   quizAttempts?: Prisma.QuizAttemptUncheckedCreateNestedManyWithoutStudentInput
   learningActivities?: Prisma.LearningActivityUncheckedCreateNestedManyWithoutStudentInput
+=======
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+>>>>>>> Stashed changes
 }
 
 export type UserCreateOrConnectWithoutSessionsInput = {
@@ -2006,6 +2178,7 @@ export type UserUpdateWithoutSessionsInput = {
   emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+<<<<<<< Updated upstream
   requestedRole?: Prisma.NullableEnumRoleFieldUpdateOperationsInput | $Enums.Role | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2021,6 +2194,11 @@ export type UserUpdateWithoutSessionsInput = {
   createdQuizzes?: Prisma.QuizUpdateManyWithoutTeacherNestedInput
   quizAttempts?: Prisma.QuizAttemptUpdateManyWithoutStudentNestedInput
   learningActivities?: Prisma.LearningActivityUpdateManyWithoutStudentNestedInput
+=======
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+>>>>>>> Stashed changes
 }
 
 export type UserUncheckedUpdateWithoutSessionsInput = {
@@ -2030,6 +2208,7 @@ export type UserUncheckedUpdateWithoutSessionsInput = {
   emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+<<<<<<< Updated upstream
   requestedRole?: Prisma.NullableEnumRoleFieldUpdateOperationsInput | $Enums.Role | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2045,6 +2224,11 @@ export type UserUncheckedUpdateWithoutSessionsInput = {
   createdQuizzes?: Prisma.QuizUncheckedUpdateManyWithoutTeacherNestedInput
   quizAttempts?: Prisma.QuizAttemptUncheckedUpdateManyWithoutStudentNestedInput
   learningActivities?: Prisma.LearningActivityUncheckedUpdateManyWithoutStudentNestedInput
+=======
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+>>>>>>> Stashed changes
 }
 
 
@@ -2055,6 +2239,7 @@ export type UserUncheckedUpdateWithoutSessionsInput = {
 export type UserCountOutputType = {
   accounts: number
   sessions: number
+<<<<<<< Updated upstream
   sentParentInvitations: number
   acceptedParentInvitations: number
   parentLinks: number
@@ -2065,11 +2250,14 @@ export type UserCountOutputType = {
   createdQuizzes: number
   quizAttempts: number
   learningActivities: number
+=======
+>>>>>>> Stashed changes
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   accounts?: boolean | UserCountOutputTypeCountAccountsArgs
   sessions?: boolean | UserCountOutputTypeCountSessionsArgs
+<<<<<<< Updated upstream
   sentParentInvitations?: boolean | UserCountOutputTypeCountSentParentInvitationsArgs
   acceptedParentInvitations?: boolean | UserCountOutputTypeCountAcceptedParentInvitationsArgs
   parentLinks?: boolean | UserCountOutputTypeCountParentLinksArgs
@@ -2080,6 +2268,8 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   createdQuizzes?: boolean | UserCountOutputTypeCountCreatedQuizzesArgs
   quizAttempts?: boolean | UserCountOutputTypeCountQuizAttemptsArgs
   learningActivities?: boolean | UserCountOutputTypeCountLearningActivitiesArgs
+=======
+>>>>>>> Stashed changes
 }
 
 /**
@@ -2106,6 +2296,7 @@ export type UserCountOutputTypeCountSessionsArgs<ExtArgs extends runtime.Types.E
   where?: Prisma.SessionWhereInput
 }
 
+<<<<<<< Updated upstream
 /**
  * UserCountOutputType without action
  */
@@ -2176,6 +2367,8 @@ export type UserCountOutputTypeCountLearningActivitiesArgs<ExtArgs extends runti
   where?: Prisma.LearningActivityWhereInput
 }
 
+=======
+>>>>>>> Stashed changes
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -2184,6 +2377,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   emailVerified?: boolean
   image?: boolean
   role?: boolean
+<<<<<<< Updated upstream
   requestedRole?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -2200,6 +2394,12 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   createdQuizzes?: boolean | Prisma.User$createdQuizzesArgs<ExtArgs>
   quizAttempts?: boolean | Prisma.User$quizAttemptsArgs<ExtArgs>
   learningActivities?: boolean | Prisma.User$learningActivitiesArgs<ExtArgs>
+=======
+  createdAt?: boolean
+  updatedAt?: boolean
+  accounts?: boolean | Prisma.User$accountsArgs<ExtArgs>
+  sessions?: boolean | Prisma.User$sessionsArgs<ExtArgs>
+>>>>>>> Stashed changes
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -2210,10 +2410,15 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   emailVerified?: boolean
   image?: boolean
   role?: boolean
+<<<<<<< Updated upstream
   requestedRole?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   password?: boolean
+=======
+  createdAt?: boolean
+  updatedAt?: boolean
+>>>>>>> Stashed changes
 }, ExtArgs["result"]["user"]>
 
 export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -2223,10 +2428,15 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   emailVerified?: boolean
   image?: boolean
   role?: boolean
+<<<<<<< Updated upstream
   requestedRole?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   password?: boolean
+=======
+  createdAt?: boolean
+  updatedAt?: boolean
+>>>>>>> Stashed changes
 }, ExtArgs["result"]["user"]>
 
 export type UserSelectScalar = {
@@ -2236,6 +2446,7 @@ export type UserSelectScalar = {
   emailVerified?: boolean
   image?: boolean
   role?: boolean
+<<<<<<< Updated upstream
   requestedRole?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -2256,6 +2467,16 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   createdQuizzes?: boolean | Prisma.User$createdQuizzesArgs<ExtArgs>
   quizAttempts?: boolean | Prisma.User$quizAttemptsArgs<ExtArgs>
   learningActivities?: boolean | Prisma.User$learningActivitiesArgs<ExtArgs>
+=======
+  createdAt?: boolean
+  updatedAt?: boolean
+}
+
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "email" | "emailVerified" | "image" | "role" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  accounts?: boolean | Prisma.User$accountsArgs<ExtArgs>
+  sessions?: boolean | Prisma.User$sessionsArgs<ExtArgs>
+>>>>>>> Stashed changes
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -2266,6 +2487,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   objects: {
     accounts: Prisma.$AccountPayload<ExtArgs>[]
     sessions: Prisma.$SessionPayload<ExtArgs>[]
+<<<<<<< Updated upstream
     sentParentInvitations: Prisma.$ParentLinkInvitationPayload<ExtArgs>[]
     acceptedParentInvitations: Prisma.$ParentLinkInvitationPayload<ExtArgs>[]
     parentLinks: Prisma.$ParentChildPayload<ExtArgs>[]
@@ -2276,6 +2498,8 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     createdQuizzes: Prisma.$QuizPayload<ExtArgs>[]
     quizAttempts: Prisma.$QuizAttemptPayload<ExtArgs>[]
     learningActivities: Prisma.$LearningActivityPayload<ExtArgs>[]
+=======
+>>>>>>> Stashed changes
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -2284,10 +2508,15 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     emailVerified: Date | null
     image: string | null
     role: $Enums.Role
+<<<<<<< Updated upstream
     requestedRole: $Enums.Role | null
     createdAt: Date
     updatedAt: Date
     password: string | null
+=======
+    createdAt: Date
+    updatedAt: Date
+>>>>>>> Stashed changes
   }, ExtArgs["result"]["user"]>
   composites: {}
 }
@@ -2684,6 +2913,7 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   readonly [Symbol.toStringTag]: "PrismaPromise"
   accounts<T extends Prisma.User$accountsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$accountsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AccountPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   sessions<T extends Prisma.User$sessionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$sessionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+<<<<<<< Updated upstream
   sentParentInvitations<T extends Prisma.User$sentParentInvitationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$sentParentInvitationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ParentLinkInvitationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   acceptedParentInvitations<T extends Prisma.User$acceptedParentInvitationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$acceptedParentInvitationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ParentLinkInvitationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   parentLinks<T extends Prisma.User$parentLinksArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$parentLinksArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ParentChildPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -2694,6 +2924,8 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   createdQuizzes<T extends Prisma.User$createdQuizzesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$createdQuizzesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$QuizPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   quizAttempts<T extends Prisma.User$quizAttemptsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$quizAttemptsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$QuizAttemptPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   learningActivities<T extends Prisma.User$learningActivitiesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$learningActivitiesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$LearningActivityPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+=======
+>>>>>>> Stashed changes
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2729,10 +2961,15 @@ export interface UserFieldRefs {
   readonly emailVerified: Prisma.FieldRef<"User", 'DateTime'>
   readonly image: Prisma.FieldRef<"User", 'String'>
   readonly role: Prisma.FieldRef<"User", 'Role'>
+<<<<<<< Updated upstream
   readonly requestedRole: Prisma.FieldRef<"User", 'Role'>
   readonly createdAt: Prisma.FieldRef<"User", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"User", 'DateTime'>
   readonly password: Prisma.FieldRef<"User", 'String'>
+=======
+  readonly createdAt: Prisma.FieldRef<"User", 'DateTime'>
+  readonly updatedAt: Prisma.FieldRef<"User", 'DateTime'>
+>>>>>>> Stashed changes
 }
     
 
@@ -3174,6 +3411,7 @@ export type User$sessionsArgs<ExtArgs extends runtime.Types.Extensions.InternalA
 }
 
 /**
+<<<<<<< Updated upstream
  * User.sentParentInvitations
  */
 export type User$sentParentInvitationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -3414,6 +3652,8 @@ export type User$learningActivitiesArgs<ExtArgs extends runtime.Types.Extensions
 }
 
 /**
+=======
+>>>>>>> Stashed changes
  * User without action
  */
 export type UserDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
