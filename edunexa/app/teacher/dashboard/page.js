@@ -61,6 +61,8 @@ export default async function TeacherDashboard() {
           </div>
           <div className="flex flex-wrap gap-2">
             <Link href="/teacher/courses" className="inline-flex items-center gap-2 rounded-full border border-stone-300 bg-white px-4 py-3 text-sm font-semibold hover:bg-stone-50"><BookOpen size={16} />Manage courses</Link>
+            <Link href="/teacher/assignments" className="inline-flex items-center gap-2 rounded-full border border-stone-300 bg-white px-4 py-3 text-sm font-semibold hover:bg-stone-50">Manage assignments</Link>
+            <Link href="/teacher/assignments/new" className="inline-flex items-center gap-2 rounded-full bg-amber-500 px-4 py-3 text-sm font-semibold text-stone-950 hover:bg-amber-400"><Plus size={17} />Create assignment</Link>
             <Link href="/teacher/quizzes/new" className="inline-flex items-center gap-2 rounded-full bg-amber-500 px-4 py-3 text-sm font-semibold text-stone-950 hover:bg-amber-400"><Plus size={17} />Create quiz</Link>
           </div>
         </div>

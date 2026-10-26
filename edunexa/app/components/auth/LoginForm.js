@@ -168,7 +168,7 @@ export default function LoginForm({
       )}
       {oauthError && (
         <div role="alert" className="mb-6 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm leading-6 text-red-700">
-          Google sign-in was interrupted ({String(oauthError)}). Please try again. If it keeps happening, check the Google OAuth client settings and the configured callback URL.
+          Google sign-in could not connect to Google. Please try again, or sign in with your email and password. If this keeps happening, ask the EduNexa administrator to check the server connection and Google sign-in settings.
         </div>
       )}
       {registered && (

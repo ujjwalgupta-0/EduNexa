@@ -18,7 +18,7 @@ export default async function StudentDashboardPage() {
     activitySince.setUTCHours(0, 0, 0, 0);
     activitySince.setUTCDate(activitySince.getUTCDate() - 29);
 
-    const [enrollments, attempts, activities] = await Promise.all([
+    const [enrollments, attempts, activities, assignments] = await Promise.all([
         prisma.enrollment.findMany({
             where: { studentId: session.user.id },
             include: {
@@ -47,6 +47,14 @@ export default async function StudentDashboardPage() {
             where: { studentId: session.user.id, occurredAt: { gte: activitySince } },
             select: { occurredAt: true },
         }),
+        prisma.assignment.findMany({
+            where: { course: { enrollments: { some: { studentId: session.user.id } } } },
+            include: {
+                course: { select: { title: true } },
+                submissions: { where: { studentId: session.user.id }, select: { grade: true } },
+            },
+            orderBy: { dueAt: "asc" },
+        }),
     ]);
 
     const courses = enrollments.map(({ course }) => ({
@@ -60,6 +68,15 @@ export default async function StudentDashboardPage() {
     const pendingQuizzes = enrollments.flatMap(({ course }) => course.quizzes
         .filter((quiz) => quiz.attempts.length === 0)
         .map((quiz) => ({ id: quiz.id, title: quiz.title, courseTitle: course.title, subject: course.subject })));
+    const pendingAssignments = assignments
+        .filter((assignment) => assignment.submissions[0]?.grade === null || assignment.submissions[0]?.grade === undefined)
+        .map((assignment) => ({
+            id: assignment.id,
+            title: assignment.title,
+            courseTitle: assignment.course.title,
+            dueAt: assignment.dueAt?.toISOString() || null,
+            submitted: assignment.submissions.length > 0,
+        }));
     const averageScore = attempts.length
         ? `${Math.round(attempts.reduce((sum, attempt) => sum + (attempt.score / attempt.totalQuestions) * 100, 0) / attempts.length)}%`
         : "No scores yet";
@@ -81,6 +98,8 @@ export default async function StudentDashboardPage() {
             studentName={session.user.name}
             courses={courses}
             pendingQuizzes={pendingQuizzes}
+            pendingAssignments={pendingAssignments}
+            aiConfigured={Boolean(process.env.GEMINI_API_KEY)}
             activityHeatmap={activityHeatmap}
             stats={{ courseCount: courses.length, averageScore, pendingQuizCount: pendingQuizzes.length, activeDays }}
         />

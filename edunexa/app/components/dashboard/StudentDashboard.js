@@ -6,12 +6,12 @@ import StatCard from "./StatCard";
 import CourseCard from "./CourseCard";
 import UpcomingTasks from "./UpcomingTasks";
 
-export default function StudentDashboard({ studentName, courses, pendingQuizzes, activityHeatmap, stats }) {
+export default function StudentDashboard({ studentName, courses, pendingQuizzes, pendingAssignments, activityHeatmap, stats, aiConfigured }) {
   const displayName = studentName?.trim().split(/\s+/)[0] || "Student";
 
   return (
     <div className="min-h-screen bg-[#f5f3ee] text-[#292622]">
-      <Sidebar />
+      <Sidebar isConfigured={aiConfigured} />
       <main className="lg:ml-64">
         <DashboardHeader />
         <div className="px-6 py-8 lg:px-8">
@@ -45,6 +45,11 @@ export default function StudentDashboard({ studentName, courses, pendingQuizzes,
                 <Link href="/student/courses" className="mt-4 inline-flex rounded-full bg-amber-500 px-4 py-2 text-sm font-semibold text-stone-950 hover:bg-amber-400">Browse courses</Link>
               </div>
             )}
+          </section>
+
+          <section className="mt-8 rounded-2xl border border-stone-200 bg-white p-5 sm:p-6">
+            <div className="flex flex-wrap items-center justify-between gap-3"><div><h2 className="font-bold">Assignments</h2><p className="mt-1 text-sm text-stone-500">Work assigned by your teachers.</p></div><Link href="/student/assignments" className="text-sm font-semibold text-amber-800 hover:text-amber-900">All assignments</Link></div>
+            {pendingAssignments.length ? <div className="mt-4 divide-y divide-stone-100">{pendingAssignments.slice(0, 4).map((assignment) => <Link key={assignment.id} href={`/student/assignments/${assignment.id}`} className="flex flex-wrap items-center justify-between gap-2 py-3 first:pt-0 last:pb-0"><span><span className="block text-sm font-medium">{assignment.title}</span><span className="mt-0.5 block text-xs text-stone-500">{assignment.courseTitle}</span></span><span className={`text-xs font-semibold ${assignment.submitted ? "text-emerald-700" : "text-amber-900"}`}>{assignment.submitted ? "Submitted" : assignment.dueAt ? `Due ${new Date(assignment.dueAt).toLocaleDateString()}` : "Not submitted"}</span></Link>)}</div> : <p className="mt-4 rounded-xl bg-stone-50 px-4 py-5 text-sm text-stone-500">No current assignments. New work from your teachers will appear here.</p>}
           </section>
 
           <section className="mt-8 rounded-2xl border border-stone-200 bg-white p-6" aria-labelledby="activity-title">

@@ -89,12 +89,6 @@ export default function CreateAccountForm({ initialRole = "STUDENT", googleAccou
         </div>
 
         <form onSubmit={handleSubmit} className="ui-panel p-6 shadow-sm sm:p-8">
-          {!emailVerificationAvailable && (
-            <div role="status" className="mb-5 rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm leading-6 text-amber-950">
-              Email/password sign-up is temporarily unavailable because verification email delivery is not configured. No account will be created until your inbox can be verified. You can continue with a Google account whose email Google has verified.
-            </div>
-          )}
-
           {googleAccountExists && (
             <div role="alert" className="mb-5 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm leading-6 text-red-700">
               This Google account already has an EduNexa account. <Link href="/login" className="font-semibold text-red-800 underline underline-offset-2 hover:text-red-900">Sign in</Link> with it, or choose a different Google account to create a new account.

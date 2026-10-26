@@ -1,12 +1,24 @@
 import nodemailer from "nodemailer";
 
 export function isEmailDeliveryConfigured() {
-  return Boolean(
-    process.env.SMTP_HOST &&
-      process.env.SMTP_USER &&
-      process.env.SMTP_PASSWORD &&
-      process.env.SMTP_FROM
-  );
+  const requiredSettings = [
+    process.env.SMTP_HOST,
+    process.env.SMTP_USER,
+    process.env.SMTP_PASSWORD,
+    process.env.SMTP_FROM,
+  ];
+
+  // .env.example values are intentionally non-empty, so truthiness alone
+  // would make the app claim that mail delivery is configured when it is not.
+  if (requiredSettings.some((value) => {
+    const normalized = value?.trim().toLowerCase();
+    return !normalized || /^(your[-_ ]|replace[-_ ]|changeme|placeholder)/.test(normalized);
+  })) {
+    return false;
+  }
+
+  const port = Number(process.env.SMTP_PORT || 587);
+  return Number.isInteger(port) && port >= 1 && port <= 65535;
 }
 
 export async function sendVerificationEmail({ email, name, url }) {

@@ -30,6 +30,8 @@ model User {
   createdQuizzes             Quiz[]           @relation("QuizAuthor")
   quizAttempts               QuizAttempt[]
   learningActivities         LearningActivity[]
+  createdAssignments        Assignment[]             @relation("AssignmentAuthor")
+  assignmentSubmissions     AssignmentSubmission[]
 
   @@index([requestedRole])
 }
@@ -74,6 +76,7 @@ model Course {
   enrollments Enrollment[]
   quizzes     Quiz[]
   activities  LearningActivity[]
+  assignments Assignment[]
 
   @@index([teacherId, createdAt])
 }
@@ -96,6 +99,40 @@ model Quiz {
 
   @@index([courseId, status, publishedAt])
   @@index([teacherId, createdAt])
+}
+
+model Assignment {
+  id           String                 @id @default(cuid())
+  courseId     String
+  teacherId    String
+  title        String
+  instructions String
+  dueAt        DateTime?
+  maxPoints    Int                    @default(100)
+  createdAt    DateTime               @default(now())
+  updatedAt    DateTime               @updatedAt
+  course       Course                 @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  teacher      User                   @relation("AssignmentAuthor", fields: [teacherId], references: [id], onDelete: Cascade)
+  submissions AssignmentSubmission[]
+
+  @@index([courseId, dueAt])
+  @@index([teacherId, createdAt])
+}
+
+model AssignmentSubmission {
+  id           String     @id @default(cuid())
+  assignmentId String
+  studentId    String
+  response     String
+  grade        Int?
+  feedback     String?
+  submittedAt  DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+  assignment   Assignment @relation(fields: [assignmentId], references: [id], onDelete: Cascade)
+  student      User       @relation(fields: [studentId], references: [id], onDelete: Cascade)
+
+  @@unique([assignmentId, studentId])
+  @@index([studentId, submittedAt])
 }
 
 model QuizQuestion {
