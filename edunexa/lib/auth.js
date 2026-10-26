@@ -66,16 +66,8 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
           },
         });
 
-        if (!user || !user.password) {
+        if (!user || !user.password || !user.emailVerified) {
           return null;
-        }
-
-        if (!user.emailVerified) {
-          const pendingVerification = await prisma.verificationToken.findFirst({
-            where: { identifier: email },
-            select: { identifier: true },
-          });
-          if (pendingVerification) return null;
         }
 
         const passwordMatch = await bcrypt.compare(
@@ -114,6 +106,14 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
   },
 
   callbacks: {
+    async signIn({ account, profile }) {
+      // Only accept Google identities whose mailbox Google has verified.
+      if (account?.provider === "google") {
+        return profile?.email_verified === true && Boolean(profile?.email);
+      }
+      return true;
+    },
+
     async jwt({ token, user, account, isNewUser }) {
       if (user) {
         token.id = user.id;

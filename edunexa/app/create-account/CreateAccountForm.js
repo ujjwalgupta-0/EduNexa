@@ -12,7 +12,7 @@ const roleHelp = {
   PARENT: "Parent accounts begin with student access. An administrator must approve your parent request before you can connect to a student.",
 };
 
-export default function CreateAccountForm({ initialRole = "STUDENT", googleAccountExists = false }) {
+export default function CreateAccountForm({ initialRole = "STUDENT", googleAccountExists = false, emailVerificationAvailable = true }) {
   const router = useRouter();
   const [form, setForm] = useState({ name: "", email: "", password: "", role: initialRole });
   const [loading, setLoading] = useState(false);
@@ -89,6 +89,12 @@ export default function CreateAccountForm({ initialRole = "STUDENT", googleAccou
         </div>
 
         <form onSubmit={handleSubmit} className="ui-panel p-6 shadow-sm sm:p-8">
+          {!emailVerificationAvailable && (
+            <div role="status" className="mb-5 rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm leading-6 text-amber-950">
+              Email/password sign-up is temporarily unavailable because verification email delivery is not configured. No account will be created until your inbox can be verified. You can continue with a Google account whose email Google has verified.
+            </div>
+          )}
+
           {googleAccountExists && (
             <div role="alert" className="mb-5 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm leading-6 text-red-700">
               This Google account already has an EduNexa account. <Link href="/login" className="font-semibold text-red-800 underline underline-offset-2 hover:text-red-900">Sign in</Link> with it, or choose a different Google account to create a new account.
@@ -103,11 +109,12 @@ export default function CreateAccountForm({ initialRole = "STUDENT", googleAccou
           <div className="mb-5">
             <label htmlFor="email" className="mb-2 block text-sm font-medium text-gray-700">Email</label>
             <input id="email" type="email" name="email" value={form.email} onChange={handleChange} maxLength={254} autoComplete="email" placeholder="you@example.com" className="ui-field w-full border px-4 py-3 outline-none" required />
+            <p className="mt-2 text-xs leading-5 text-gray-500">We&apos;ll send a verification link. You must open it before signing in with a password.</p>
           </div>
 
           <div className="mb-5">
-            <label htmlFor="password" className="mb-2 block text-sm font-medium text-gray-700">Password</label>
-            <input id="password" type="password" name="password" value={form.password} onChange={handleChange} minLength={8} maxLength={72} autoComplete="new-password" placeholder="At least 8 characters" className="ui-field w-full border px-4 py-3 outline-none" required />
+            <label htmlFor="password" className="mb-2 block text-sm font-medium text-gray-700">Create a password</label>
+            <input id="password" type="password" name="password" value={form.password} onChange={handleChange} minLength={8} maxLength={72} autoComplete="new-password" placeholder="Choose your own (at least 8 characters)" className="ui-field w-full border px-4 py-3 outline-none" required />
           </div>
 
           <div className="mb-6">
@@ -122,7 +129,7 @@ export default function CreateAccountForm({ initialRole = "STUDENT", googleAccou
 
           {error && <div role="alert" className="mb-5 rounded-xl border border-gray-200 bg-gray-50 px-4 py-3 text-sm text-gray-700">{error}</div>}
 
-          <button type="submit" disabled={loading || googleLoading} className="ui-primary w-full py-3 font-semibold disabled:cursor-not-allowed disabled:opacity-60">
+          <button type="submit" disabled={loading || googleLoading || !emailVerificationAvailable} className="ui-primary w-full py-3 font-semibold disabled:cursor-not-allowed disabled:opacity-60">
             {loading ? "Creating account…" : form.role === "STUDENT" ? "Create account" : `Create account and request ${form.role.toLowerCase()} access`}
           </button>
 
