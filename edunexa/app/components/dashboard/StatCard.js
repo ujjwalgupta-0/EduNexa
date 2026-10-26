@@ -19,7 +19,7 @@ export default function StatCard({
           </p>
         </div>
 
-        <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-indigo-50 text-indigo-600">
+        <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-amber-50 text-amber-800">
           <Icon size={21} />
         </div>
 

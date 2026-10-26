@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
+import BrandMark from "../BrandMark";
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
 
@@ -13,14 +13,12 @@ export default function Navbar() {
   };
 
   return (
-    <header className="fixed left-0 right-0 top-0 z-50 border-b border-gray-100/80 bg-white/80 backdrop-blur-xl">
-      <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-6">
+    <header className="fixed left-0 right-0 top-0 z-50 border-b border-stone-200/80 bg-[#fbfaf7]/95 backdrop-blur">
+      <div className="mx-auto flex h-[72px] max-w-7xl items-center justify-between px-5 sm:px-8">
 
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-2">
-          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-[#6846ff] to-[#4c32d8] text-xl font-black text-white shadow-lg shadow-indigo-200">
-            <Image src="/icon.png" height={40} width={40} alt="Logo"></Image>
-          </div>
+        <Link href="/" className="flex items-center gap-2.5" aria-label="EduNexa home">
+          <BrandMark size={36} priority />
 
           <span className="text-2xl font-bold tracking-tight pop">
             EduNexa
@@ -28,7 +26,7 @@ export default function Navbar() {
         </Link>
 
         {/* Desktop Navigation */}
-        <nav className="hidden items-center gap-8 md:flex">
+        <nav aria-label="Main navigation" className="hidden items-center gap-7 md:flex">
           <a href="#features" className="nav-link">
             Features
           </a>
@@ -37,31 +35,21 @@ export default function Navbar() {
             How It Works
           </a>
 
-          <a href="#about" className="nav-link">
-            About Us
-          </a>
-
-          <a href="#pricing" className="nav-link">
-            Pricing
-          </a>
-
-          <a href="#contact" className="nav-link">
-            Contact
-          </a>
+          <a href="#community" className="nav-link">Community</a>
         </nav>
 
         {/* Desktop Actions */}
         <div className="hidden items-center gap-3 md:flex">
           <Link
             href="/login"
-            className="rounded-xl border border-gray-200 bg-white px-5 py-2.5 text-sm font-semibold transition hover:border-indigo-300 hover:bg-indigo-50"
+            className="rounded-xl border border-gray-200 bg-white px-5 py-2.5 text-sm font-semibold transition hover:border-slate-300 hover:bg-slate-50"
           >
             Log in
           </Link>
 
           <Link
-            href="#RoleSelector"
-            className="rounded-xl bg-[#5540e8] px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-indigo-200 transition hover:-translate-y-0.5 hover:bg-[#4633d0]"
+            href="#role-selector"
+            className="rounded-full bg-amber-500 px-5 py-2.5 text-sm font-semibold text-stone-950 transition hover:bg-amber-400"
           >
             Get Started
           </Link>
@@ -71,7 +59,8 @@ export default function Navbar() {
         <button
           onClick={() => setMobileMenu(!mobileMenu)}
           className="rounded-lg p-2 md:hidden"
-          aria-label="Toggle menu"
+          aria-label={mobileMenu ? "Close menu" : "Open menu"}
+          aria-expanded={mobileMenu}
         >
           {mobileMenu ? <X /> : <Menu />}
         </button>
@@ -90,17 +79,7 @@ export default function Navbar() {
               How It Works
             </a>
 
-            <a href="#about" onClick={closeMenu}>
-              About Us
-            </a>
-
-            <a href="#pricing" onClick={closeMenu}>
-              Pricing
-            </a>
-
-            <a href="#contact" onClick={closeMenu}>
-              Contact
-            </a>
+            <a href="#community" onClick={closeMenu}>Community</a>
 
             <Link
               href="/login"
@@ -111,8 +90,8 @@ export default function Navbar() {
             </Link>
 
             <Link
-              href="/register"
-              className="rounded-xl bg-[#5540e8] px-5 py-3 text-center font-semibold text-white"
+              href="#role-selector"
+              className="rounded-full bg-amber-500 px-5 py-3 text-center font-semibold text-stone-950"
               onClick={closeMenu}
             >
               Get Started

@@ -1,101 +1,34 @@
 import Link from "next/link";
-import Image from "next/image";
-import FooterColumn from "./footerColumn";
+import BrandMark from "../BrandMark";
+
+const columns = [
+  { title: "Explore", links: [["Features", "#features"], ["How it works", "#how-it-works"], ["Community", "#community"]] },
+  { title: "Workspaces", links: [["Student", "/login?role=student"], ["Teacher", "/login?role=teacher"], ["Parent", "/login?role=parent"]] },
+  { title: "Your account", links: [["Sign in", "/login"], ["Create account", "/create-account"]] },
+];
 
 export default function Footer() {
   return (
-    <footer
-      id="contact"
-      className="bg-[#0b1025] text-white"
-    >
-
-      <div className="mx-auto max-w-7xl px-6 py-16">
-
-        <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-5">
-
-          {/* Brand */}
-          <div className="lg:col-span-2">
-
-            <Link
-              href="/"
-              className="flex items-center gap-2"
-            >
-
-              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-indigo-600 font-black">
-                <Image src="/icon.png" height={40} width={40} alt="Logo"></Image>
-              </div>
-
-              <span className="text-xl font-bold">
-                Edunexa
-              </span>
-
-            </Link>
-
-            <p className="mt-5 max-w-sm leading-7 text-gray-400">
-              A unified learning platform built to empower
-              students, support teachers, and keep parents connected.
-            </p>
-
+    <footer id="contact" className="bg-neutral-950 text-white">
+      <div className="mx-auto max-w-7xl px-5 py-14 sm:px-8 sm:py-16">
+        <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-[1.5fr_1fr_1fr_1fr]">
+          <div>
+            <Link href="/" aria-label="EduNexa home" className="inline-flex items-center gap-2.5"><BrandMark size={34} variant="dark" /><span className="text-lg font-semibold tracking-tight">EduNexa</span></Link>
+            <p className="mt-4 max-w-xs text-sm leading-6 text-neutral-400">A shared place for students, teachers, and families to stay connected to learning.</p>
           </div>
-
-          {/* Product */}
-          <FooterColumn
-            title="Product"
-            links={[
-              "Features",
-              "How It Works",
-              "Pricing",
-              "Updates",
-            ]}
-          />
-
-          {/* Company */}
-          <FooterColumn
-            title="Company"
-            links={[
-              "About Us",
-              "Our Mission",
-              "Careers",
-              "Contact Us",
-            ]}
-          />
-
-          {/* Resources */}
-          <FooterColumn
-            title="Resources"
-            links={[
-              "Blog",
-              "Help Center",
-              "Guides",
-              "Privacy Policy",
-            ]}
-          />
-
+          {columns.map(({ title, links }) => (
+            <div key={title}>
+              <h3 className="text-sm font-semibold">{title}</h3>
+              <ul className="mt-4 space-y-3 text-sm text-neutral-400">
+                {links.map(([label, href]) => <li key={label}><Link href={href} className="transition hover:text-white">{label}</Link></li>)}
+              </ul>
+            </div>
+          ))}
         </div>
-
-        {/* Bottom */}
-        <div className="mt-14 flex flex-col justify-between gap-5 border-t border-white/10 pt-7 text-sm text-gray-500 sm:flex-row">
-
-          <p>
-            © 2026 Edunexa. All rights reserved.
-          </p>
-
-          <div className="flex gap-6">
-
-            <Link href="/terms">
-              Terms of Service
-            </Link>
-
-            <Link href="/privacy">
-              Privacy Policy
-            </Link>
-
-          </div>
-
+        <div className="mt-12 border-t border-white/10 pt-5 text-xs text-neutral-500">
+          <p>&copy; {new Date().getFullYear()} EduNexa. All rights reserved.</p>
         </div>
-
       </div>
-
     </footer>
   );
 }

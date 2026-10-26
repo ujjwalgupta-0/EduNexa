@@ -9,7 +9,7 @@ import Footer from "./components/landing/Footer";
 
 export default function Home() {
   return (
-    <main className="min-h-screen overflow-hidden bg-[#fcfcff] text-[#11152b]">
+  <main className="min-h-screen overflow-hidden bg-[#fafafa] text-[#171717]">
       <Navbar />
       <Hero />
       <RoleSelector />

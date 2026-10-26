@@ -1,41 +1,19 @@
 import Link from "next/link";
-import {
-  ArrowRight,
-  Sparkles,
-} from "lucide-react";
+import { ArrowRight } from "lucide-react";
 
 export default function CTA() {
   return (
-    <section
-      id="pricing"
-      className="px-6 py-24"
-    >
-
-      <div className="mx-auto max-w-5xl rounded-[2rem] bg-gradient-to-r from-[#5140e8] to-[#7754ee] px-8 py-16 text-center text-white shadow-2xl shadow-indigo-200">
-
-        <Sparkles className="mx-auto mb-5" />
-
-        <h2 className="text-4xl font-black tracking-tight sm:text-5xl">
-          Ready to start your
-          <br />
-          learning journey?
-        </h2>
-
-        <p className="mx-auto mt-5 max-w-xl text-indigo-100">
-          Join a smarter learning ecosystem built for students,
-          teachers, and parents.
-        </p>
-
-        <Link
-          href="#RoleSelector"
-          className="mt-8 inline-flex items-center gap-3 rounded-xl bg-white px-7 py-4 font-bold text-indigo-700 shadow-xl transition hover:-translate-y-1"
-        >
-          Get Started Now
-          <ArrowRight size={18} />
+    <section className="px-5 pb-20 sm:px-8 sm:pb-24">
+      <div className="mx-auto flex max-w-7xl flex-col gap-8 rounded-2xl bg-[#e5a332] px-7 py-10 text-neutral-950 sm:flex-row sm:items-center sm:justify-between sm:px-10 sm:py-12">
+        <div className="max-w-xl">
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-neutral-800/70">Your next step</p>
+          <h2 className="mt-3 text-3xl font-semibold tracking-[-0.04em]">Make room for better learning.</h2>
+          <p className="mt-3 text-sm leading-6 text-neutral-900/70">Choose your role and get started with EduNexa.</p>
+        </div>
+        <Link href="#role-selector" className="inline-flex w-fit items-center gap-3 rounded-full bg-neutral-950 px-5 py-3 text-sm font-semibold text-white transition hover:bg-neutral-800">
+          Get started <ArrowRight size={16} />
         </Link>
-
       </div>
-
     </section>
   );
 }

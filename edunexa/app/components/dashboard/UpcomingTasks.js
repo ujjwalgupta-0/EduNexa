@@ -1,85 +1,29 @@
-import { ArrowRight, CalendarDays } from "lucide-react";
+import Link from "next/link";
+import { ArrowRight, ClipboardCheck } from "lucide-react";
 
-const tasks = [
-  {
-    title: "Maths Assignment",
-    subject: "Mathematics",
-    due: "Due in 2 days",
-  },
-  {
-    title: "DBMS Quiz",
-    subject: "Database Management",
-    due: "Due in 3 days",
-  },
-  {
-    title: "OS Test",
-    subject: "Operating Systems",
-    due: "Due in 5 days",
-  },
-];
-
-export default function UpcomingTasks() {
+export default function UpcomingTasks({ quizzes }) {
   return (
-    <div className="rounded-2xl border border-gray-200 bg-white p-6">
-
-      <div className="flex items-center justify-between">
-
-        <div>
-          <h2 className="font-bold">
-            Upcoming
-          </h2>
-
-          <p className="mt-1 text-xs text-gray-400">
-            Don't miss your deadlines.
-          </p>
+    <section className="rounded-2xl border border-stone-200 bg-white p-6">
+      <div className="flex items-center justify-between gap-4">
+        <div><h2 className="font-bold">Quizzes to take</h2><p className="mt-1 text-xs text-stone-500">Published quizzes for your enrolled courses.</p></div>
+        <Link href="/student/quizzes" className="text-xs font-bold text-amber-800 hover:text-amber-900">All quizzes</Link>
+      </div>
+      {quizzes.length ? (
+        <div className="mt-5 divide-y divide-stone-100">
+          {quizzes.slice(0, 6).map((quiz) => (
+            <Link key={quiz.id} href={`/student/quizzes/${quiz.id}`} className="flex items-center gap-4 py-4 first:pt-0 last:pb-0">
+              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-amber-50 text-amber-900"><ClipboardCheck size={18} /></span>
+              <span className="min-w-0 flex-1"><span className="block truncate text-sm font-semibold text-stone-800">{quiz.title}</span><span className="mt-1 block truncate text-xs text-stone-500">{quiz.courseTitle} · {quiz.subject}</span></span>
+              <ArrowRight size={16} className="shrink-0 text-stone-400" />
+            </Link>
+          ))}
         </div>
-
-        <button className="text-xs font-bold text-indigo-600">
-          View all
-        </button>
-
-      </div>
-
-      <div className="mt-6 space-y-4">
-
-        {tasks.map((task) => (
-          <div
-            key={task.title}
-            className="flex items-center gap-4 rounded-xl border border-gray-100 p-4 transition hover:bg-gray-50"
-          >
-
-            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-indigo-50 text-indigo-600">
-              <CalendarDays size={18} />
-            </div>
-
-            <div className="min-w-0 flex-1">
-
-              <p className="truncate text-sm font-bold">
-                {task.title}
-              </p>
-
-              <p className="mt-1 text-xs text-gray-400">
-                {task.subject}
-              </p>
-
-            </div>
-
-            <div className="text-right">
-              <p className="text-xs font-semibold text-gray-500">
-                {task.due}
-              </p>
-
-              <ArrowRight
-                size={15}
-                className="ml-auto mt-2 text-gray-300"
-              />
-            </div>
-
-          </div>
-        ))}
-
-      </div>
-
-    </div>
+      ) : (
+        <div className="mt-5 rounded-xl bg-stone-50 px-5 py-8 text-center">
+          <p className="text-sm font-medium">You&apos;re all caught up</p>
+          <p className="mt-1 text-xs text-stone-500">New published quizzes will appear here.</p>
+        </div>
+      )}
+    </section>
   );
 }

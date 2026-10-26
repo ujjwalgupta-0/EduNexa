@@ -10,48 +10,48 @@ const roles = [
   {
     title: "Student",
     description:
-      "Learn, practice, and track your progress with everything you need in one place.",
+      "Find your courses, keep up with assignments, and see your learning progress.",
     icon: GraduationCap,
-    color: "blue",
+    color: "amber",
     href: "/login?role=student",
   },
   {
     title: "Teacher",
     description:
-      "Teach, create, assess, and understand your students with powerful insights.",
+      "Organize courses and follow the progress of the learners you teach.",
     icon: Users,
-    color: "green",
+    color: "stone",
     href: "/login?role=teacher",
   },
   {
     title: "Parent",
     description:
-      "Stay connected with your child's learning, attendance, assignments, and progress.",
+      "Connect to your child's learning and keep track of their school activity.",
     icon: ShieldCheck ,
-    color: "pink",
+    color: "amber",
     href: "/login?role=parent",
   },
 ];
 
 export default function RoleSelector() {
   return (
-    <section id="RoleSelector" className="border-y border-gray-100 bg-white py-24">
+    <section id="role-selector" className="scroll-mt-20 border-y border-stone-200 bg-[#fbfaf7] py-20 sm:py-24">
 
       <div className="mx-auto max-w-7xl px-6">
 
         {/* Heading */}
         <div className="mx-auto max-w-2xl text-center">
 
-          <p className="text-sm font-bold uppercase tracking-[0.2em] text-indigo-600">
-            Who are you?
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-neutral-500">
+            Choose your workspace
           </p>
 
           <h2 className="mt-3 text-4xl font-black tracking-tight sm:text-5xl">
-            Choose your role and get started
+            Start with what brings you here.
           </h2>
 
           <p className="mt-4 text-gray-500">
-            A personalized experience tailored specifically for you.
+            Sign in or create an account for the tools that fit your role.
           </p>
 
         </div>
@@ -66,31 +66,29 @@ export default function RoleSelector() {
               <Link
                 href={role.href}
                 key={role.title}
-                className="group relative overflow-hidden rounded-3xl border border-gray-200 bg-white p-8 text-center transition duration-300 hover:-translate-y-2 hover:border-indigo-200 hover:shadow-2xl hover:shadow-indigo-100"
+                className="group relative overflow-hidden rounded-xl border border-neutral-200 bg-white p-7 text-left transition duration-200 hover:-translate-y-1 hover:border-neutral-400 hover:shadow-lg hover:shadow-neutral-200/50 sm:p-8"
               >
 
                 <div
-                  className={`mx-auto flex h-20 w-20 items-center justify-center rounded-2xl transition group-hover:scale-110 ${
-                    role.color === "blue"
-                      ? "bg-blue-50 text-blue-600"
-                      : role.color === "green"
-                        ? "bg-emerald-50 text-emerald-600"
-                        : "bg-pink-50 text-pink-600"
+                  className={`flex h-12 w-12 items-center justify-center rounded-lg transition ${
+                    role.color === "amber"
+                      ? "bg-amber-100 text-amber-900"
+                      : "bg-stone-100 text-stone-700"
                   }`}
                 >
-                  <Icon size={36} />
+                  <Icon size={22} strokeWidth={1.8} />
                 </div>
 
-                <h3 className="mt-6 text-2xl font-bold">
+                <h3 className="mt-6 text-xl font-semibold tracking-tight">
                   {role.title}
                 </h3>
 
-                <p className="mx-auto mt-3 max-w-sm leading-7 text-gray-500">
+                <p className="mt-3 min-h-[3.5rem] leading-6 text-neutral-600">
                   {role.description}
                 </p>
 
-                <div className="mt-7 inline-flex items-center gap-2 rounded-xl border border-gray-200 px-5 py-3 text-sm font-bold transition group-hover:border-indigo-300 group-hover:text-indigo-600">
-                  I'm a {role.title}
+                <div className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-neutral-800">
+                  Continue as {role.title}
 
                   <ArrowRight size={16} />
                 </div>

@@ -1,8 +1,10 @@
 "use client";
 
+import BrandMark from "../BrandMark";
+
 import Link from "next/link";
-import { useState } from "react";
-import { signIn } from "next-auth/react";
+import { useEffect, useState } from "react";
+import { signIn, signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
 import {
@@ -18,26 +20,41 @@ const roleConfig = {
   student: {
     label: "Student",
     icon: GraduationCap,
-    color: "text-blue-600",
-    bg: "bg-blue-50",
+    color: "text-slate-600",
+    bg: "bg-slate-50",
   },
 
   teacher: {
     label: "Teacher",
     icon: Users,
-    color: "text-emerald-600",
-    bg: "bg-emerald-50",
+    color: "text-gray-600",
+    bg: "bg-gray-50",
   },
 
   parent: {
     label: "Parent",
     icon: ShieldCheck,
-    color: "text-pink-600",
-    bg: "bg-pink-50",
+    color: "text-slate-600",
+    bg: "bg-slate-50",
+  },
+  admin: {
+    label: "Administrator",
+    icon: ShieldCheck,
+    color: "text-gray-700",
+    bg: "bg-gray-100",
   },
 };
 
-export default function LoginForm({ role }) {
+export default function LoginForm({
+  role,
+  registered = false,
+  requestedRole = null,
+  passwordReset = false,
+  verificationSent = null,
+  emailVerification = null,
+  googleError = null,
+  oauthError = null,
+}) {
   const router = useRouter();
 
   const [showPassword, setShowPassword] = useState(false);
@@ -45,6 +62,15 @@ export default function LoginForm({ role }) {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [googleLoading, setGoogleLoading] = useState(false);
+
+  useEffect(() => {
+    if (googleError === "role") {
+      signOut({ redirect: false }).catch((signOutError) => {
+        console.error("Unable to clear mismatched Google session:", signOutError);
+      });
+    }
+  }, [googleError]);
 
   const selectedRole = role?.toLowerCase() || "student";
 
@@ -52,6 +78,9 @@ export default function LoginForm({ role }) {
     roleConfig[selectedRole] || roleConfig.student;
 
   const Icon = currentRole.icon;
+  const requestedRoleLabel = requestedRole
+    ? `${requestedRole[0].toUpperCase()}${requestedRole.slice(1)}`
+    : null;
 
   // EMAIL + PASSWORD LOGIN
   async function handleSubmit(e) {
@@ -72,22 +101,7 @@ export default function LoginForm({ role }) {
         return;
       }
 
-      // Redirect based on selected role
-      switch (selectedRole) {
-        case "teacher":
-          router.push("/teacher/dashboard");
-          break;
-
-        case "parent":
-          router.push("/parent/dashboard");
-          break;
-
-        case "student":
-        default:
-          router.push("/student/dashboard");
-          break;
-      }
-
+      router.push("/dashboard");
       router.refresh();
     } catch (error) {
       console.error("LOGIN ERROR:", error);
@@ -100,26 +114,77 @@ export default function LoginForm({ role }) {
   // GOOGLE LOGIN
   async function handleGoogleLogin() {
     setError("");
+    setGoogleLoading(true);
 
     try {
+      // The browser may still hold a previous administrator session. Clear it
+      // before starting a different Google login so a failed callback cannot
+      // fall back to that account's dashboard.
+      await signOut({ redirect: false });
       await signIn("google", {
-        callbackUrl: `/${selectedRole}/dashboard`,
+        redirectTo: `/auth/google-login?role=${encodeURIComponent(selectedRole)}`,
       });
     } catch (error) {
       console.error("GOOGLE LOGIN ERROR:", error);
       setError("Unable to sign in with Google.");
+      setGoogleLoading(false);
     }
   }
 
   return (
     <div className="w-full max-w-md">
+      {passwordReset && (
+        <div role="status" className="mb-6 rounded-xl border border-gray-200 bg-gray-50 px-4 py-3 text-sm leading-6 text-gray-700">
+          Your password has been updated. Sign in with your new password.
+        </div>
+      )}
+      {verificationSent && (
+        <div role="status" className="mb-6 rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm leading-6 text-gray-700">
+          {verificationSent === "failed"
+            ? "Your account was created, but the verification email could not be sent. You can request another link."
+            : "Check your inbox for a verification link. You must verify your email before signing in."}
+          {" "}<Link href="/verify-email" className="font-semibold text-amber-900 underline">Resend verification email</Link>
+        </div>
+      )}
+      {emailVerification === "success" && (
+        <div role="status" className="mb-6 rounded-xl border border-gray-200 bg-gray-50 px-4 py-3 text-sm leading-6 text-gray-700">
+          Your email is verified. You can sign in now.
+        </div>
+      )}
+      {emailVerification === "invalid" && (
+        <div role="alert" className="mb-6 rounded-xl border border-gray-200 bg-gray-50 px-4 py-3 text-sm leading-6 text-gray-700">
+          This verification link is invalid or expired. <Link href="/verify-email" className="font-semibold text-amber-900 underline">Request a new link</Link>.
+        </div>
+      )}
+      {googleError === "role" && (
+        <div role="alert" className="mb-6 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm leading-6 text-red-700">
+          This Google account does not have {currentRole.label.toLowerCase()} access. Choose the correct sign-in page or use a different Google account.
+        </div>
+      )}
+      {googleError === "failed" && (
+        <div role="alert" className="mb-6 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm leading-6 text-red-700">
+          Google sign-in could not be completed. Please try again, and check that the Google account is connected to EduNexa.
+        </div>
+      )}
+      {oauthError && (
+        <div role="alert" className="mb-6 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm leading-6 text-red-700">
+          Google sign-in was interrupted ({String(oauthError)}). Please try again. If it keeps happening, check the Google OAuth client settings and the configured callback URL.
+        </div>
+      )}
+      {registered && (
+        <div className="mb-6 rounded-xl border border-gray-200 bg-gray-50 px-4 py-3 text-sm leading-6 text-gray-700">
+          {requestedRoleLabel
+            ? `Your account is ready with student access. Your ${requestedRoleLabel} access request is waiting for administrator approval.`
+            : "Your account is ready. Sign in to continue."}
+        </div>
+      )}
 
       {/* Mobile Logo */}
       <div className="mb-10 flex justify-center lg:hidden">
         <Link href="/" className="flex items-center gap-2">
-          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#5540e8] text-lg font-black text-white shadow-lg shadow-indigo-200" />
+          <BrandMark size={36} />
 
-          <span className="text-xl font-bold text-[#11152b]">
+          <span className="text-xl font-bold text-[#172b3a]">
             EduNexa
           </span>
         </Link>
@@ -129,17 +194,17 @@ export default function LoginForm({ role }) {
       <div className="text-center">
 
         <div
-          className={`mx-auto flex h-16 w-16 items-center justify-center rounded-2xl ${currentRole.bg} ${currentRole.color}`}
+          className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-amber-100 text-amber-900"
         >
           <Icon size={30} />
         </div>
 
-        <h1 className="mt-6 text-3xl font-black tracking-tight text-[#11152b]">
+        <h1 className="ui-page-title mt-6 text-3xl">
           Welcome back
         </h1>
 
         <p className="mt-2 text-gray-500">
-          Sign in to your {currentRole.label.toLowerCase()} account
+          {selectedRole === "admin" ? "Sign in to the EduNexa admin workspace" : `Sign in to your ${currentRole.label.toLowerCase()} account`}
         </p>
 
       </div>
@@ -164,7 +229,7 @@ export default function LoginForm({ role }) {
             autoComplete="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="w-full rounded-xl border border-gray-200 bg-white px-4 py-3.5 text-sm outline-none transition placeholder:text-gray-400 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-100"
+            className="ui-field w-full border px-4 py-3.5 text-sm outline-none transition placeholder:text-gray-400"
             required
           />
         </div>
@@ -182,7 +247,7 @@ export default function LoginForm({ role }) {
 
             <Link
               href="/forgot-password"
-              className="text-sm font-semibold text-indigo-600 transition hover:text-indigo-700"
+              className="text-sm font-semibold text-amber-800 transition hover:text-amber-900"
             >
               Forgot password?
             </Link>
@@ -198,7 +263,7 @@ export default function LoginForm({ role }) {
               autoComplete="current-password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full rounded-xl border border-gray-200 bg-white px-4 py-3.5 pr-12 text-sm outline-none transition placeholder:text-gray-400 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-100"
+              className="ui-field w-full border px-4 py-3.5 pr-12 text-sm outline-none transition placeholder:text-gray-400"
               required
             />
 
@@ -227,7 +292,7 @@ export default function LoginForm({ role }) {
           <label className="flex cursor-pointer items-center gap-2 text-sm text-gray-600">
             <input
               type="checkbox"
-              className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+              className="h-4 w-4 rounded border-gray-300 text-slate-600 focus:ring-slate-500"
             />
             Remember me
           </label>
@@ -235,7 +300,7 @@ export default function LoginForm({ role }) {
 
         {/* Error */}
         {error && (
-          <div className="rounded-xl bg-red-50 px-4 py-3 text-sm font-medium text-red-600">
+          <div className="rounded-xl border-l-2 border-gray-700 bg-gray-100 px-4 py-3 text-sm font-medium text-gray-700">
             {error}
           </div>
         )}
@@ -244,7 +309,7 @@ export default function LoginForm({ role }) {
         <button
           type="submit"
           disabled={loading}
-          className="group flex w-full items-center justify-center gap-2 rounded-xl bg-[#5540e8] px-5 py-3.5 text-sm font-bold text-white shadow-lg shadow-indigo-200 transition hover:-translate-y-0.5 hover:bg-[#4633d0] disabled:cursor-not-allowed disabled:opacity-60"
+          className="ui-primary group flex w-full items-center justify-center gap-2 px-5 py-3.5 text-sm font-bold disabled:cursor-not-allowed disabled:opacity-60"
         >
           {loading ? "Signing in..." : "Sign In"}
 
@@ -273,26 +338,31 @@ export default function LoginForm({ role }) {
       <button
         type="button"
         onClick={handleGoogleLogin}
-        className="flex w-full items-center justify-center gap-3 rounded-xl border border-gray-200 bg-white px-5 py-3.5 text-sm font-semibold text-gray-700 transition hover:border-gray-300 hover:bg-gray-50"
+        disabled={loading || googleLoading}
+        className="flex w-full items-center justify-center gap-3 rounded-xl border border-gray-200 bg-white px-5 py-3.5 text-sm font-semibold text-gray-700 transition hover:border-gray-300 hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-60"
       >
         <span className="text-lg font-bold">
           G
         </span>
 
-        Continue with Google
+        {googleLoading ? "Connecting to Google..." : "Continue with Google"}
       </button>
 
       {/* Register */}
-      <p className="mt-8 text-center text-sm text-gray-500">
-        Don't have an account?{" "}
+      {selectedRole === "admin" ? (
+        <p className="mt-8 text-center text-sm text-gray-500">Admin access is provisioned by the system owner. Contact them if you need an account.</p>
+      ) : (
+        <p className="mt-8 text-center text-sm text-gray-500">
+          Don&apos;t have an account?{" "}
+          <Link href={`/create-account?role=${selectedRole}`} className="font-bold text-amber-800 hover:text-amber-900">Create an Account</Link>
+        </p>
+      )}
 
-        <Link
-          href={`/create-account?role=${selectedRole}`}
-          className="font-bold text-indigo-600 hover:text-indigo-700"
-        >
-          Create an Account
-        </Link>
-      </p>
+      {selectedRole !== "admin" && (
+        <p className="mt-3 text-center text-xs text-gray-400">
+          <Link href="/admin/login" className="hover:text-gray-700">Administrator sign in</Link>
+        </p>
+      )}
 
       {/* Security */}
       <div className="mt-8 flex items-center justify-center gap-2 text-xs text-gray-400">

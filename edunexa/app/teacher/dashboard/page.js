@@ -1,216 +1,90 @@
-import {
-  Users,
-  BookOpen,
-  ClipboardCheck,
-  TrendingUp,
-  Plus,
-  Sparkles,
-  ArrowUpRight,
-} from "lucide-react";
+import Link from "next/link";
+import { ArrowRight, BookOpen, ClipboardCheck, Plus, TrendingUp, Users } from "lucide-react";
+import { redirect } from "next/navigation";
+import BrandLink from "@/app/components/BrandLink";
+import { auth } from "@/lib/auth";
+import { prisma } from "@/lib/prisma";
 
-const stats = [
-  {
-    title: "Total Students",
-    value: "128",
-    change: "+12%",
-    icon: Users,
-  },
-  {
-    title: "Active Courses",
-    value: "6",
-    change: "+2",
-    icon: BookOpen,
-  },
-  {
-    title: "Quizzes Created",
-    value: "24",
-    change: "+8%",
-    icon: ClipboardCheck,
-  },
-  {
-    title: "Avg. Performance",
-    value: "84%",
-    change: "+6%",
-    icon: TrendingUp,
-  },
-];
+export default async function TeacherDashboard() {
+  const session = await auth();
+  if (!session?.user) redirect("/login");
+  if (session.user.role !== "TEACHER") redirect("/dashboard");
 
-export default function TeacherDashboard() {
+  const [courses, enrollments, quizzes, attempts] = await Promise.all([
+    prisma.course.findMany({
+      where: { teacherId: session.user.id },
+      include: { _count: { select: { enrollments: true, quizzes: true } } },
+      orderBy: { updatedAt: "desc" },
+    }),
+    prisma.enrollment.findMany({
+      where: { course: { teacherId: session.user.id } },
+      select: { studentId: true },
+    }),
+    prisma.quiz.findMany({
+      where: { teacherId: session.user.id },
+      select: { id: true, status: true },
+    }),
+    prisma.quizAttempt.findMany({
+      where: { quiz: { teacherId: session.user.id } },
+      include: {
+        student: { select: { name: true } },
+        quiz: { select: { title: true, course: { select: { title: true } } } },
+      },
+      orderBy: { submittedAt: "desc" },
+      take: 100,
+    }),
+  ]);
+
+  const studentCount = new Set(enrollments.map(({ studentId }) => studentId)).size;
+  const publishedQuizCount = quizzes.filter(({ status }) => status === "PUBLISHED").length;
+  const averageScore = attempts.length
+    ? `${Math.round(attempts.reduce((sum, attempt) => sum + (attempt.score / attempt.totalQuestions) * 100, 0) / attempts.length)}%`
+    : "—";
+  const firstName = session.user.name?.trim().split(/\s+/)[0] || "Teacher";
+  const stats = [
+    { title: "Enrolled students", value: studentCount, note: "Across your courses", icon: Users },
+    { title: "Courses", value: courses.length, note: "Courses you manage", icon: BookOpen },
+    { title: "Published quizzes", value: publishedQuizCount, note: "Available to students", icon: ClipboardCheck },
+    { title: "Average quiz score", value: averageScore, note: `Based on ${attempts.length} recent submissions`, icon: TrendingUp },
+  ];
+
   return (
-    <main className="min-h-screen bg-[#f8f9fc] p-6 md:p-10">
+    <main className="min-h-screen bg-[#f5f3ee] p-5 text-[#292622] sm:p-7 md:p-10">
       <div className="mx-auto max-w-7xl">
+        <div className="mb-7 border-b border-stone-200 pb-4"><BrandLink size={32} /></div>
 
-        {/* Header */}
-        <div className="flex flex-col justify-between gap-5 md:flex-row md:items-center">
+        <div className="flex flex-col justify-between gap-5 sm:flex-row sm:items-end">
           <div>
-            <p className="text-sm font-semibold text-[#5540e8]">
-              Teacher Portal
-            </p>
-
-            <h1 className="mt-1 text-3xl font-black text-[#11152b]">
-              Good morning, Teacher
-            </h1>
-
-            <p className="mt-2 text-gray-500">
-              Here's what's happening with your students today.
-            </p>
+            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-amber-800">Teacher workspace</p>
+            <h1 className="mt-2 text-3xl font-semibold tracking-tight">Good to see you, {firstName}</h1>
+            <p className="mt-2 text-sm text-stone-600">Courses, quizzes, and student results in one place.</p>
           </div>
-
-          <div className="flex gap-3">
-            <button className="flex items-center gap-2 rounded-xl border bg-white px-4 py-3 text-sm font-semibold text-gray-700 shadow-sm">
-              <Sparkles size={17} />
-              AI Quiz
-            </button>
-
-            <button className="flex items-center gap-2 rounded-xl bg-[#5540e8] px-4 py-3 text-sm font-bold text-white shadow-lg shadow-indigo-200">
-              <Plus size={18} />
-              Create Quiz
-            </button>
+          <div className="flex flex-wrap gap-2">
+            <Link href="/teacher/courses" className="inline-flex items-center gap-2 rounded-full border border-stone-300 bg-white px-4 py-3 text-sm font-semibold hover:bg-stone-50"><BookOpen size={16} />Manage courses</Link>
+            <Link href="/teacher/quizzes/new" className="inline-flex items-center gap-2 rounded-full bg-amber-500 px-4 py-3 text-sm font-semibold text-stone-950 hover:bg-amber-400"><Plus size={17} />Create quiz</Link>
           </div>
         </div>
 
-        {/* Stats */}
-        <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-          {stats.map((stat) => {
-            const Icon = stat.icon;
+        <section aria-label="Teaching overview" className="mt-8 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+          {stats.map(({ title, value, note, icon: Icon }) => (
+            <article key={title} className="rounded-2xl border border-stone-200 bg-white p-5">
+              <div className="flex items-start justify-between"><div><p className="text-sm text-stone-500">{title}</p><p className="mt-3 text-3xl font-semibold tracking-tight tabular-nums">{value}</p></div><span className="rounded-xl bg-amber-50 p-2.5 text-amber-900"><Icon size={19} /></span></div>
+              <p className="mt-4 text-xs text-stone-500">{note}</p>
+            </article>
+          ))}
+        </section>
 
-            return (
-              <div
-                key={stat.title}
-                className="rounded-2xl border border-gray-100 bg-white p-6 shadow-sm"
-              >
-                <div className="flex items-center justify-between">
-                  <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-indigo-50 text-[#5540e8]">
-                    <Icon size={21} />
-                  </div>
+        <div className="mt-6 grid gap-6 lg:grid-cols-[1.1fr_0.9fr]">
+          <section className="rounded-2xl border border-stone-200 bg-white p-5 sm:p-6">
+            <div className="flex items-center justify-between gap-3"><div><h2 className="font-semibold">Your courses</h2><p className="mt-1 text-xs text-stone-500">Current enrolment and quiz totals</p></div><Link href="/teacher/courses" className="text-xs font-semibold text-amber-900 hover:underline">All courses</Link></div>
+            {courses.length ? <div className="mt-5 divide-y divide-stone-100">{courses.slice(0, 6).map((course) => <article key={course.id} className="flex flex-wrap items-center justify-between gap-3 py-4 first:pt-0 last:pb-0"><div><p className="font-medium">{course.title}</p><p className="mt-1 text-xs text-stone-500">{course.subject}</p></div><div className="flex items-center gap-4 text-xs text-stone-500"><span>{course._count.enrollments} students</span><span>{course._count.quizzes} quizzes</span></div></article>)}</div> : <div className="mt-5 rounded-xl bg-stone-50 px-5 py-8 text-center"><p className="text-sm font-medium">No courses yet</p><p className="mt-1 text-xs text-stone-500">Create a course to organize your students and quizzes.</p><Link href="/teacher/courses" className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-amber-900">Manage courses <ArrowRight size={14} /></Link></div>}
+          </section>
 
-                  <span className="text-xs font-bold text-emerald-600">
-                    {stat.change}
-                  </span>
-                </div>
-
-                <p className="mt-5 text-sm text-gray-500">
-                  {stat.title}
-                </p>
-
-                <h2 className="mt-1 text-2xl font-black text-[#11152b]">
-                  {stat.value}
-                </h2>
-              </div>
-            );
-          })}
+          <section className="rounded-2xl border border-stone-200 bg-white p-5 sm:p-6">
+            <div className="flex items-center justify-between gap-3"><div><h2 className="font-semibold">Recent quiz submissions</h2><p className="mt-1 text-xs text-stone-500">Scores from your students</p></div><Link href="/teacher/quizzes" className="text-xs font-semibold text-amber-900 hover:underline">Manage quizzes</Link></div>
+            {attempts.length ? <div className="mt-5 space-y-2">{attempts.slice(0, 6).map((attempt) => <article key={attempt.id} className="flex items-center justify-between gap-3 rounded-xl bg-stone-50 px-4 py-3"><div className="min-w-0"><p className="truncate text-sm font-medium">{attempt.student.name || "Student"}</p><p className="mt-0.5 truncate text-xs text-stone-500">{attempt.quiz.title} · {attempt.quiz.course.title}</p></div><span className="shrink-0 text-sm font-semibold tabular-nums">{Math.round((attempt.score / attempt.totalQuestions) * 100)}%</span></article>)}</div> : <div className="mt-5 rounded-xl bg-stone-50 px-5 py-8 text-center"><p className="text-sm font-medium">No submissions yet</p><p className="mt-1 text-xs text-stone-500">Published quiz results will appear here.</p><Link href="/teacher/quizzes/new" className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-amber-900">Create a quiz <ArrowRight size={14} /></Link></div>}
+          </section>
         </div>
-
-        {/* Main */}
-        <div className="mt-6 grid gap-6 lg:grid-cols-3">
-
-          {/* Performance */}
-          <div className="rounded-2xl border border-gray-100 bg-white p-6 shadow-sm lg:col-span-2">
-            <div className="flex items-center justify-between">
-              <div>
-                <h2 className="font-bold text-[#11152b]">
-                  Student Performance
-                </h2>
-
-                <p className="mt-1 text-sm text-gray-500">
-                  Overall class performance this month
-                </p>
-              </div>
-
-              <button className="flex items-center gap-1 text-sm font-semibold text-[#5540e8]">
-                View analytics
-                <ArrowUpRight size={16} />
-              </button>
-            </div>
-
-            <div className="mt-8 flex h-52 items-end gap-3">
-              {[45, 60, 52, 72, 65, 82, 76, 90, 78, 88, 84, 94].map(
-                (height, i) => (
-                  <div
-                    key={i}
-                    className="flex-1 rounded-t-lg bg-indigo-100"
-                    style={{ height: `${height}%` }}
-                  />
-                )
-              )}
-            </div>
-
-            <div className="mt-3 flex justify-between text-xs text-gray-400">
-              <span>Jan</span>
-              <span>Feb</span>
-              <span>Mar</span>
-              <span>Apr</span>
-              <span>May</span>
-              <span>Jun</span>
-            </div>
-          </div>
-
-          {/* Quick Actions */}
-          <div className="rounded-2xl border border-gray-100 bg-white p-6 shadow-sm">
-            <h2 className="font-bold text-[#11152b]">
-              Quick Actions
-            </h2>
-
-            <div className="mt-5 space-y-3">
-              {[
-                ["Create Assignment", ClipboardCheck],
-                ["Generate with AI", Sparkles],
-                ["View Students", Users],
-                ["Course Materials", BookOpen],
-              ].map(([label, Icon]) => (
-                <button
-                  key={label}
-                  className="flex w-full items-center gap-3 rounded-xl border border-gray-100 p-4 text-left text-sm font-semibold text-gray-700 transition hover:border-indigo-200 hover:bg-indigo-50"
-                >
-                  <Icon size={18} className="text-[#5540e8]" />
-                  {label}
-                </button>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        {/* Recent Students */}
-        <div className="mt-6 rounded-2xl border border-gray-100 bg-white p-6 shadow-sm">
-          <div className="flex items-center justify-between">
-            <div>
-              <h2 className="font-bold text-[#11152b]">
-                Recent Student Activity
-              </h2>
-
-              <p className="mt-1 text-sm text-gray-500">
-                Latest submissions and progress
-              </p>
-            </div>
-
-            <button className="text-sm font-semibold text-[#5540e8]">
-              View all
-            </button>
-          </div>
-
-          <div className="mt-6 space-y-4">
-            {[
-              ["Aarav Sharma", "Completed Mathematics Quiz", "92%"],
-              ["Riya Singh", "Submitted Physics Assignment", "88%"],
-              ["Kabir Mehta", "Completed Programming Quiz", "95%"],
-            ].map(([name, activity, score]) => (
-              <div
-                key={name}
-                className="flex items-center justify-between rounded-xl bg-[#fafaff] p-4"
-              >
-                <div>
-                  <p className="font-semibold text-[#11152b]">{name}</p>
-                  <p className="mt-1 text-sm text-gray-500">{activity}</p>
-                </div>
-
-                <span className="font-bold text-emerald-600">
-                  {score}
-                </span>
-              </div>
-            ))}
-          </div>
-        </div>
-
       </div>
     </main>
   );

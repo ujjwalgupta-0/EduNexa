@@ -1,106 +1,113 @@
 import {
-  BookOpen,
-  Brain,
-  CalendarCheck,
-  ClipboardCheck,
-  ShieldCheck,
-  TrendingUp,
+  Activity,
+  BrainCircuit,
+  CheckCheck,
+  Compass,
+  GraduationCap,
+  LockKeyhole,
+  Sparkles,
+  UsersRound,
 } from "lucide-react";
 
-const features = [
+const innovations = [
   {
-    icon: BookOpen,
-    title: "Smart Learning",
-    description:
-      "Access courses, lectures, notes, videos, and learning resources anytime.",
+    icon: Activity,
+    number: "01",
+    title: "A heatmap with real meaning",
+    description: "A 30-day view of quiz submissions makes learning activity visible over time, without dressing sample data up as progress.",
+    status: "Available now",
+    available: true,
   },
   {
-    icon: ClipboardCheck,
-    title: "Assessments",
-    description:
-      "Create and take quizzes, tests, and assignments with instant feedback.",
+    icon: CheckCheck,
+    number: "02",
+    title: "Assessment that closes the loop",
+    description: "Teachers publish quizzes, students answer them, and results with explanations are saved for review and follow-up.",
+    status: "Available now",
+    available: true,
   },
   {
-    icon: TrendingUp,
-    title: "Progress Tracking",
-    description:
-      "Track performance over time with detailed analytics and visual reports.",
+    icon: UsersRound,
+    number: "03",
+    title: "One journey, three perspectives",
+    description: "Students see their work, teachers see submissions from their classes, and parents see recent results for linked children.",
+    status: "Available now",
+    available: true,
   },
   {
-    icon: CalendarCheck,
-    title: "Attendance",
-    description:
-      "Monitor attendance and keep everyone informed with transparent records.",
+    icon: Sparkles,
+    number: "04",
+    title: "AI drafts. Teachers decide.",
+    description: "Generate practice-question drafts from course topics, then let teachers review and edit every question before students see it.",
+    status: "In development",
+    available: false,
   },
   {
-    icon: Brain,
-    title: "AI Insights",
-    description:
-      "Get personalized insights and recommendations to improve learning outcomes.",
+    icon: BrainCircuit,
+    number: "05",
+    title: "A patient AI learning companion",
+    description: "A guided space where students can ask questions and work through difficult ideas at their own pace.",
+    status: "In development",
+    available: false,
   },
   {
-    icon: ShieldCheck,
-    title: "Secure & Reliable",
-    description:
-      "Your educational data is protected with secure, role-based access.",
+    icon: Compass,
+    number: "06",
+    title: "Next steps grounded in evidence",
+    description: "Use quiz topics and answer patterns to surface learning gaps and suggest focused practice—not one-size-fits-all advice.",
+    status: "In development",
+    available: false,
+  },
+  {
+    icon: LockKeyhole,
+    number: "07",
+    title: "The right insight for the right person",
+    description: "Role-based access keeps student, teacher, and parent workspaces distinct, including parent views limited to linked students.",
+    status: "Available now",
+    available: true,
+  },
+  {
+    icon: GraduationCap,
+    number: "08",
+    title: "A learning loop, not another feed",
+    description: "Connect learning, assessment, analysis, recommendations, and follow-up so progress can lead to meaningful action.",
+    status: "Product vision",
+    available: false,
   },
 ];
 
 export default function Features() {
   return (
-    <section
-      id="features"
-      className="bg-white py-28"
-    >
-
-      <div className="mx-auto max-w-7xl px-6">
-
-        {/* Heading */}
-        <div className="mx-auto max-w-2xl text-center">
-
-          <p className="text-sm font-bold uppercase tracking-[0.2em] text-indigo-600">
-            Powerful features
-          </p>
-
-          <h2 className="mt-3 text-4xl font-black tracking-tight sm:text-5xl">
-            Everything you need in one place
-          </h2>
-
-          <p className="mt-5 text-lg text-gray-500">
-            Tools designed to help students learn better and
-            educators teach smarter.
-          </p>
-
+    <section id="features" className="scroll-mt-20 bg-[#fbfaf7] py-20 sm:py-24">
+      <div className="mx-auto max-w-7xl px-5 sm:px-8">
+        <div className="grid gap-8 border-b border-stone-200 pb-9 md:grid-cols-[1fr_auto] md:items-end">
+          <div className="max-w-2xl">
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-neutral-500">What makes EduNexa different</p>
+            <h2 className="mt-3 text-4xl font-semibold tracking-[-0.05em] sm:text-5xl">A clearer picture. A better next move.</h2>
+            <p className="mt-4 max-w-xl text-base leading-7 text-neutral-600">The idea is simple: use real learning evidence to help the people around a student move forward together.</p>
+          </div>
+          <div className="flex flex-wrap gap-x-5 gap-y-2 text-xs font-medium text-stone-600">
+            <span className="inline-flex items-center gap-2"><span className="h-2 w-2 rounded-full bg-emerald-600" />Available now</span>
+            <span className="inline-flex items-center gap-2"><span className="h-2 w-2 rounded-full bg-stone-400" />In development</span>
+          </div>
         </div>
 
-        {/* Feature Cards */}
-        <div className="mt-16 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-
-          {features.map((feature) => {
-            const Icon = feature.icon;
-
-            return (
-              <div
-                key={feature.title}
-                className="group rounded-2xl border border-gray-200 bg-white p-7 transition hover:-translate-y-1 hover:border-indigo-200 hover:shadow-xl hover:shadow-gray-100"
-              >
-
-                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-indigo-50 text-indigo-600 transition group-hover:bg-indigo-600 group-hover:text-white">
-                  <Icon size={23} />
-                </div>
-
-                <h3 className="mt-6 text-xl font-bold">
-                  {feature.title}
-                </h3>
-
-                <p className="mt-3 leading-7 text-gray-500">
-                  {feature.description}
-                </p>
-
+        <div className="mt-3 grid gap-x-8 md:grid-cols-2 lg:grid-cols-4">
+          {innovations.map(({ icon: Icon, number, title, description, status, available }) => (
+            <article key={number} className="border-b border-stone-200 py-6 lg:min-h-[240px]">
+              <div className="flex items-center justify-between">
+                <span className="text-xs font-semibold tabular-nums text-stone-400">{number}</span>
+                <Icon size={19} strokeWidth={1.7} className={available ? "text-amber-800" : "text-stone-500"} aria-hidden="true" />
               </div>
-            );
-          })}
-
+              <h3 className="mt-5 text-base font-semibold tracking-tight">{title}</h3>
+              <p className="mt-2 text-sm leading-6 text-stone-600">{description}</p>
+              <p className={`mt-4 text-[10px] font-bold uppercase tracking-[0.13em] ${available ? "text-emerald-800" : "text-stone-500"}`}>{status}</p>
+            </article>
+          ))}
+        </div>
+        <div className="mt-8 flex flex-col gap-2 border-l-2 border-amber-500 pl-4 sm:flex-row sm:items-center sm:gap-4">
+          <p className="text-sm font-semibold text-stone-800">Consistency and performance, kept in context.</p>
+          <p className="text-sm leading-6 text-stone-600">The activity heatmap tracks when learning happens; quiz results show how understanding is developing.</p>
         </div>
       </div>
     </section>
