@@ -59,12 +59,9 @@ export default function AiMaterialGenerator({ kind, onGenerated }) {
 
   return (
     <section className="rounded-2xl border border-amber-200 bg-amber-50/60 p-5 sm:p-6">
-      <div className="flex items-start gap-3">
-        <span className="rounded-xl bg-white p-2.5 text-amber-800"><Sparkles size={19} /></span>
-        <div>
-          <h2 className="font-semibold text-stone-900">Create with AI</h2>
-          <p className="mt-1 text-sm leading-5 text-stone-600">Generate a {kind} from a topic or a photo of your lesson material. Review and edit the draft before saving.</p>
-        </div>
+      <div>
+        <h2 className="font-semibold text-stone-900">Create with AI</h2>
+        <p className="mt-1 text-sm leading-5 text-stone-600">Generate a {kind} from a topic or a photo of your lesson material. Review and edit the draft before saving.</p>
       </div>
       <div className="mt-5 grid gap-4 sm:grid-cols-2">
         <label className="text-sm font-semibold text-stone-800 sm:col-span-2">

@@ -17,6 +17,10 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     Google({
       clientId: process.env.AUTH_GOOGLE_ID,
       clientSecret: process.env.AUTH_GOOGLE_SECRET,
+      // Google verifies the mailbox, and the signIn callback below rejects
+      // any profile without a verified email. Allow a verified Google identity
+      // to link to an existing password account with the same email.
+      allowDangerousEmailAccountLinking: true,
       // Use Google's stable OAuth endpoints directly. The default OIDC setup
       // fetches Google's discovery document before it can even redirect the
       // browser, which makes sign-in fail on hosts that block that request.
@@ -110,7 +114,16 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     async signIn({ account, profile }) {
       // Only accept Google identities whose mailbox Google has verified.
       if (account?.provider === "google") {
-        return profile?.email_verified === true && Boolean(profile?.email);
+        if (profile?.email_verified !== true || !profile?.email) return false;
+
+        // Auth.js does not update emailVerified when it links Google to an
+        // existing password account. Preserve the verified status for that
+        // account so approved role-request queues can include it.
+        await prisma.user.updateMany({
+          where: { email: profile.email.toLowerCase().trim(), emailVerified: null },
+          data: { emailVerified: new Date() },
+        });
+        return true;
       }
       return true;
     },
@@ -122,6 +135,18 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         token.requestedRole = user.requestedRole ?? null;
         token.googleSignupAt =
           account?.provider === "google" && isNewUser ? Date.now() : null;
+      } else if (typeof token.id === "string") {
+        // Role approvals happen in the database while the user's JWT session
+        // may still be open. Refresh role claims so an approved user can enter
+        // their new workspace without needing to sign out and back in.
+        const currentUser = await prisma.user.findUnique({
+          where: { id: token.id },
+          select: { role: true, requestedRole: true },
+        });
+        if (currentUser) {
+          token.role = currentUser.role;
+          token.requestedRole = currentUser.requestedRole ?? null;
+        }
       }
 
       return token;

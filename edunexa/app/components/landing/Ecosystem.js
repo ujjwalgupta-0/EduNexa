@@ -31,25 +31,20 @@ export default function Ecosystem() {
           </div>
 
           <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
-            {stages.map(({ number, label, detail, icon: Icon, live }, index) => (
-              <article key={number} className={`relative rounded-2xl border p-5 ${live ? "border-stone-200 bg-white" : "border-stone-300/80 bg-[#f7f5f0]"}`}>
+            {stages.map(({ number, label, detail, icon: Icon }, index) => (
+              <article key={number} className="relative rounded-2xl border border-stone-200 bg-white p-5">
                 <div className="flex items-center justify-between">
                   <span className="text-xs font-semibold tabular-nums text-stone-400">{number}</span>
-                  <Icon size={19} strokeWidth={1.7} className={live ? "text-amber-800" : "text-stone-500"} aria-hidden="true" />
+                  <Icon size={19} strokeWidth={1.7} className="text-amber-800" aria-hidden="true" />
                 </div>
                 <h3 className="mt-5 text-lg font-semibold tracking-tight">{label}</h3>
                 <p className="mt-1.5 min-h-10 text-sm leading-5 text-stone-600">{detail}</p>
-                <span className={`mt-4 inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-[0.12em] ${live ? "text-emerald-800" : "text-stone-500"}`}>
-                  <span className={`h-1.5 w-1.5 rounded-full ${live ? "bg-emerald-600" : "bg-stone-400"}`} />
-                  {live ? "Available now" : "In development"}
-                </span>
                 {index < stages.length - 1 && <ArrowRight className="absolute -right-[13px] top-1/2 z-10 hidden -translate-y-1/2 text-stone-400 xl:block" size={20} aria-hidden="true" />}
                 {index === 2 && <ArrowDownRight className="absolute -bottom-[17px] right-1/2 z-10 hidden translate-x-1/2 text-stone-400 sm:block xl:hidden" size={20} aria-hidden="true" />}
               </article>
             ))}
           </div>
         </div>
-        <p className="mt-6 text-xs leading-5 text-stone-500">AI guidance and recommendations are part of the product vision and are not available yet.</p>
       </div>
     </section>
   );

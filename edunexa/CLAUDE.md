@@ -1,2 +1,2 @@
 @AGENTS.md
-@For my bracnch &&Ujjwal
+@For my branch &&Ujjwal

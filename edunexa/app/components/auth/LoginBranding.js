@@ -11,7 +11,7 @@ export default function LoginBranding() {
   return (
     <section className="relative hidden overflow-hidden bg-[#e5a332] lg:flex">
 
-      <div className="relative z-10 flex w-full flex-col justify-between px-12 py-10 xl:px-20">
+      <div className="relative z-10 flex min-h-screen w-full flex-col px-12 py-8 xl:px-20 xl:py-10">
 
         {/* Logo */}
         <Link
@@ -26,7 +26,7 @@ export default function LoginBranding() {
         </Link>
 
         {/* Main content */}
-        <div className="max-w-xl">
+        <div className="mt-[clamp(3rem,10vh,7.5rem)] max-w-xl">
 
           <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-neutral-950/15 bg-neutral-950/5 px-4 py-2 text-sm font-semibold text-neutral-950">
             <Brain size={16} className="text-neutral-950" />
@@ -89,7 +89,7 @@ export default function LoginBranding() {
         </div>
 
         {/* Bottom */}
-        <div className="flex items-center gap-3 text-sm text-neutral-950/65">
+        <div className="mt-auto flex items-center gap-3 pt-10 text-sm text-neutral-950/65">
           <GraduationCap size={18} />
 
           <span>

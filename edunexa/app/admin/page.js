@@ -53,6 +53,7 @@ export default async function AdminDashboardPage() {
     { id: "parents", label: "Approved parents", value: parentsCount, description: "View parent list" },
     { id: "courses", label: "Courses", value: coursesCount, description: "View course catalog" },
     { id: "enrollments", label: "Enrollments", value: enrollmentsCount, description: "View enrollment list" },
+    { id: "requests", label: "Pending requests", value: pendingCount, description: "Review teacher and parent access" },
   ];
 
   return (

@@ -86,12 +86,15 @@ export default async function TeacherDashboard() {
         </div>
 
         <section aria-label="Teaching overview" className="mt-8 grid gap-4 sm:grid-cols-2 xl:grid-cols-5">
-          {stats.map(({ title, value, note, icon: Icon }) => (
-            <article key={title} className="rounded-2xl border border-stone-200 bg-white p-5">
+          {stats.map(({ title, value, note, icon: Icon }) => {
+            const content = <>
               <div className="flex items-start justify-between"><div><p className="text-sm text-stone-500">{title}</p><p className="mt-3 text-3xl font-semibold tracking-tight tabular-nums">{value}</p></div><span className="rounded-xl bg-amber-50 p-2.5 text-amber-900"><Icon size={19} /></span></div>
-              <p className="mt-4 text-xs text-stone-500">{note}</p>
-            </article>
-          ))}
+              <p className="mt-4 text-xs text-stone-500">{note}{title === "Enrolled students" && <span className="ml-2 font-semibold text-amber-900">View list →</span>}</p>
+            </>;
+            return title === "Enrolled students"
+              ? <Link key={title} href="/teacher/students" className="rounded-2xl border border-stone-200 bg-white p-5 transition hover:border-amber-300 hover:shadow-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-700">{content}</Link>
+              : <article key={title} className="rounded-2xl border border-stone-200 bg-white p-5">{content}</article>;
+          })}
         </section>
 
         <div className="mt-6 grid gap-6 lg:grid-cols-[1.1fr_0.9fr]">

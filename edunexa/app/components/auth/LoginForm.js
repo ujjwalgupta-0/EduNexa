@@ -168,7 +168,11 @@ export default function LoginForm({
       )}
       {oauthError && (
         <div role="alert" className="mb-6 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm leading-6 text-red-700">
-          Google sign-in could not connect to Google. Please try again, or sign in with your email and password. If this keeps happening, ask the EduNexa administrator to check the server connection and Google sign-in settings.
+          {oauthError === "Configuration"
+            ? <>EduNexa&apos;s auth server reported a configuration error. Check its terminal logs for the underlying cause. For local Google sign-in, the Google OAuth client must allow <code className="rounded bg-red-100 px-1">http://localhost:3000/api/auth/callback/google</code> as an authorized redirect URI.</>
+            : oauthError === "OAuthAccountNotLinked"
+              ? "This Google address belongs to an existing EduNexa account. Sign in with that account's original method, or ask an administrator for help linking it."
+              : "Google sign-in could not complete. Please try again, or sign in with your email and password. If this continues, check the Google OAuth settings and server logs."}
         </div>
       )}
       {registered && (
