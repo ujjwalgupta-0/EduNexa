@@ -25,6 +25,7 @@ const sections = [
   { id: "students", label: "Students", icon: GraduationCap },
   { id: "teachers", label: "Approved teachers", icon: UserRoundCheck },
   { id: "parents", label: "Approved parents", icon: ShieldCheck },
+  { id: "requests", label: "Role requests", icon: UserRoundCheck },
   { id: "courses", label: "Courses", icon: BookOpen },
   { id: "enrollments", label: "Enrollments", icon: CheckCircle2 },
 ];
@@ -69,7 +70,7 @@ const formatDate = (value) => new Date(value).toLocaleDateString("en-IN", { day:
 export default function AdminWorkspace({ admin, stats, accounts, teachers, parents, courses, enrollments, requests }) {
   const [activeSection, setActiveSection] = useState("overview");
   const [search, setSearch] = useState("");
-  const datasets = { accounts, students: accounts.filter((item) => item.role === "STUDENT"), teachers, parents, courses, enrollments };
+  const datasets = { accounts, students: accounts.filter((item) => item.role === "STUDENT"), teachers, parents, courses, enrollments, requests };
   const section = sections.find((item) => item.id === activeSection) || sections[0];
   const rows = datasets[activeSection] || [];
   const query = search.trim().toLowerCase();
@@ -114,7 +115,7 @@ export default function AdminWorkspace({ admin, stats, accounts, teachers, paren
         {activeSection === "overview" ? (
           <>
             <section aria-label="Platform metrics" className="mt-7">
-              <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 xl:grid-cols-6">
+              <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 xl:grid-cols-7">
               {stats.map(({ id, label, value, description }) => (
                 <button key={id} type="button" onClick={() => { setActiveSection(id); setSearch(""); }} className="group ui-panel flex min-h-32 flex-col justify-between p-4 text-left transition-colors hover:bg-amber-50 focus:z-10 focus:outline-none focus:ring-2 focus:ring-amber-600 focus:ring-offset-2 sm:p-5">
                   <span className="text-[13px] font-medium leading-5 text-gray-600">{label}</span>
@@ -128,10 +129,16 @@ export default function AdminWorkspace({ admin, stats, accounts, teachers, paren
               <div className="flex flex-wrap items-end justify-between gap-3 border-b border-gray-200 px-5 py-4 sm:px-6">
                 <div><p className="text-[10px] font-semibold uppercase tracking-[0.14em] text-gray-400">Verification</p><h2 className="mt-1 text-lg font-semibold">Teacher and parent requests</h2></div>
                 <span className="text-xs font-medium text-gray-500">{requests.length} waiting</span>
+                <button type="button" onClick={() => { setActiveSection("requests"); setSearch(""); }} className="text-xs font-semibold text-amber-800 hover:text-amber-900">Open review queue →</button>
               </div>
               <div className="px-5 sm:px-6"><RoleRequests requests={requests} /></div>
             </section>
           </>
+        ) : activeSection === "requests" ? (
+          <section className="mt-7 overflow-hidden rounded-lg border border-gray-300 bg-white">
+            <div className="border-b border-gray-200 px-5 py-4 sm:px-6"><h2 className="font-semibold">Teacher and parent access requests</h2><p className="mt-1 text-sm text-gray-500">Approve a request to activate that role, or decline it to keep the account as a student.</p></div>
+            <div className="px-5 sm:px-6"><RoleRequests requests={requests} /></div>
+          </section>
         ) : (
           <section className="mt-7 overflow-hidden rounded-lg border border-gray-300 bg-white">
             <div className="flex flex-wrap items-center justify-between gap-4 border-b border-gray-200 px-5 py-4 sm:px-6">
